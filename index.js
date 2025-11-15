@@ -126,7 +126,6 @@ Papa.parse(sheetUrl, {
               .filter((dateObj) => dateObj >= new Date())
           : [];
 
-          
         if (startDates.length === 0) return null;
 
         const endDates = tour.endDates
