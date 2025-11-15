@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html>
+  <head lang="ru">
+    <title>IN-SEEL</title>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/png" href="./assets/favicon.webp" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./styles.css" type="text/css" />
+    <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
+    <script defer src="index.js"></script>
+  </head>
+  <body>
+    <div id="root">
+      <header class="app-header">
+        <a href="./index.html"
+          ><img src="./assets/insel_logo.webp" class="logo" alt="logo"
+        /></a>
+      </header>
+      <main class="main">
+        <div class="catalog-container">
+          <div class="selectors-container">
+            <div class="user-input-container">
+              <label for="tour-type">Тип тура</label>
+              <select name="type" id="tour-type" class="user-select-input">
+                <option value="all">Все типы</option>
+                <option value="oneday">Однодневные</option>
+                <option value="multipledays">Многодневные</option>
+              </select>
+            </div>
+            <div class="user-input-container">
+              <label for="user-price">Страны</label>
+              <select name="price" id="user-price" class="user-select-input">
+                <option value="all">Все страны</option>
+                <option value="Frankreich">Франция</option>
+                <option value="Italien">Италия</option>
+                <option value="Belgien">Бельгия</option>
+              </select>
+            </div>
+            <div class="user-input-container">
+              <label for="date-from">Дата от:</label>
+              <input
+                type="date"
+                id="date-from"
+                name="date-from"
+                class="date-input"
+              />
+            </div>
+            <div class="user-input-container">
+              <label for="date-to">Дата до:</label>
+              <input
+                type="date"
+                id="date-to"
+                name="date-to"
+                class="date-input"
+                placeholder="дд.мм.гггг"
+                onfocus="this.type='date'"
+                onblur="if(!this.value)this.type='text'"
+              />
+            </div>
+
+            <div class="user-input-container">
+              <label for="startCity">Отправление из</label>
+              <select name="type" id="startCity" class="user-select-input">
+                <option value="all">Все</option>
+                <option>A3, Autohof Mogendorf</option>
+                <option>A5, Ausfahrt 55 Offenburg</option>
+                <option>A5, Ausfahrt 56 Lahr/Schwarzwald</option>
+                <option>A5, in Richtung Basel, Rasthof Baden-Baden</option>
+                <option>A5, in Richtung Frankfurt, Rasthof Baden-Baden</option>
+                <option>Aachen</option>
+                <option>Augsburg, Kaufland-Parkplatz</option>
+                <option>Autohof Bremgarten, A5</option>
+                <option>Baden-Baden, Bf. Ooser</option>
+                <option>Basel-Badischer Bahnhof</option>
+                <option>Bergheim 50126</option>
+                <option>Bochum</option>
+                <option>Bonn Hbf</option>
+                <option>Darmstadt</option>
+                <option>Dortmund</option>
+                <option>Dortmund HbF, Nordausgang</option>
+                <option>Düren</option>
+                <option>Düsseldorf Hbf, ZOB</option>
+                <option>Essen ZOB-Südseite</option>
+                <option>Frankfurt</option>
+                <option>Freiburg HbF, ZOB</option>
+                <option>Grenzübergang Basel, Tankstelle</option>
+                <option>Hamburg 21109 Serways Raststätte</option>
+                <option>Hanau</option>
+                <option>Heilbronn/Neckarsulm</option>
+                <option>HEM Tankst. Limburg ICE Bahnhof</option>
+                <option>Karlsruhe Hbf, ZOB</option>
+                <option>Koblenz</option>
+                <option>Köln / IHK</option>
+                <option>Köln Hbf</option>
+                <option>Mannheim</option>
+                <option>Mannheim ADAC</option>
+                <option>Montabaur ICE Bahnhof, Haupteingang</option>
+                <option>München-Fröttmaning</option>
+                <option>Nürnberg</option>
+                <option>Nürnberg, Fischbach Bahnhof</option>
+                <option>Olpe</option>
+                <option>PKW- ohne BUS</option>
+                <option>Rasthof Am Hockenheimer Ring</option>
+                <option>Rasthof Bad Bellingen</option>
+                <option>Rasthof Bad Camberg</option>
+                <option>Rasthof Heiligenroth</option>
+                <option>Rasthof Mahlberg, A5, Richtung Basel</option>
+                <option>Rasthof Medenbach, Richtung Köln</option>
+                <option>Rasthof Montabaur</option>
+                <option>Rasthof Pfungstadt</option>
+                <option>Rasthof Schauinsland</option>
+                <option>Saarbrücken Q-Parkplatz</option>
+                <option>Siegen-Siegerlandhalle</option>
+                <option>Sinsheim</option>
+                <option>Stuttgart</option>
+                <option>Stuttgart-Vaihingen</option>
+                <option>Ulm</option>
+              </select>
+            </div>
+
+            <button class="search-button">🔍 Найти</button>
+          </div>
+
+          <div id="spinner" class="sun-spinner">
+            <div class="center-outline"></div>
+            <div class="sk-circle">
+              <div class="sk-circle1 sk-child"></div>
+              <div class="sk-circle2 sk-child"></div>
+              <div class="sk-circle3 sk-child"></div>
+              <div class="sk-circle4 sk-child"></div>
+              <div class="sk-circle5 sk-child"></div>
+              <div class="sk-circle6 sk-child"></div>
+              <div class="sk-circle7 sk-child"></div>
+              <div class="sk-circle8 sk-child"></div>
+              <div class="sk-circle9 sk-child"></div>
+              <div class="sk-circle10 sk-child"></div>
+            </div>
+          </div>
+
+          <div class="tour-list"></div>
+        </div>
+
+        <div class="form-contrainer">
+          <form>
+            <h2 id="tourTitle"></h2>
+            <p id="tourDescription"></p>
+            <img
+              id="tourImage"
+              class="tour-img-description"
+              src=""
+              alt="Tour Image"
+            />
+
+            <br /><br />
+
+            <label for="fname">Имя*:</label><br />
+            <input
+              type="text"
+              id="fname"
+              name="fname"
+              placeholder="Введите имя"
+            /><br /><br />
+
+            <label for="lname">Фамилия*:</label><br />
+            <input
+              type="text"
+              id="lname"
+              name="lname"
+              placeholder="Введите фамилию"
+              required
+            /><br /><br />
+            <div class="adress-container">
+              <p>Адрес прописки:</p>
+              <label for="addressStreet">Улица, номер дома (латиницой)*:</label
+              ><br />
+              <input
+                type="text"
+                id="addressStreet"
+                name="addressStreet"
+                placeholder="Alexanderplatz 1"
+                required
+              /><br /><br />
+              <label for="addressCity">Инлекс, город (латиницой)*:</label><br />
+              <input
+                type="text"
+                id="addressCity"
+                name="addressCity"
+                placeholder="DE-10178 Berlin"
+                required
+              /><br /><br />
+            </div>
+            <label for="numTourists">Количество туистов (от 18 лет):</label
+            ><br />
+            <input
+              type="number"
+              id="numTourists"
+              name="numTourists"
+              min="1"
+              value="1"
+              required
+            /><br /><br />
+            <label for="numChildren"
+              >Количество несовершеннолетних (до 18 лет):</label
+            ><br />
+            <input
+              type="number"
+              id="numChildren"
+              name="numChildren"
+              min="0"
+              value="0"
+              required
+            />
+            <br /><br />
+            <div id="birthdatesContainer"></div>
+            <div id="startCityContainer"></div>
+            <div id="startDateContainer"></div>
+            <div id="hotelContainer"></div>
+            <br /><br />
+            <label for="email">Email*:</label><br />
+            <input
+              type="email"
+              id="email"
+              name="email"
+              placeholder="yourname@email.com"
+              required
+            /><br /><br />
+
+            <label for="phone">Телефон*:</label><br />
+            <input
+              type="tel"
+              id="phone"
+              name="phone"
+              placeholder="+49221 778 98 702 "
+              required
+            /><br /><br />
+            <label for="phone">Коментарий:</label><br />
+
+            <input type="text" id="comments" name="comments" /><br /><br />
+
+            <button type="submit">Отправить контактный формуляр</button
+            ><br /><br />
+          </form>
+        </div>
+      </main>
+      <footer class="footer">
+        <p>DE-50735 Köln, Sebastianstraße 97</p>
+        <a href="mailto:info@in-seel.de">info@in-seel.de</a>
+        <p>tel: +49221 778 98 702</p>
+      </footer>
+    </div>
+  </body>
+</html>
