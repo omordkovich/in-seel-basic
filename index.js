@@ -445,6 +445,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
+
     // CAPTCHA prüfen
     const recaptcha = grecaptcha.getResponse();
     if (!recaptcha) {
@@ -483,12 +484,14 @@ document.addEventListener("DOMContentLoaded", () => {
       "tourTitle",
       document.getElementById("tourTitle").textContent
     );
+
     formData.append(
       "userAddress",
       `${document.getElementById("addressStreet")?.value || ""} ${
         document.getElementById("addressCity")?.value || ""
       }`
     );
+
     const hotelSelect = document.getElementById("hotel-room-select");
     formData.append("hotelRoomType", hotelSelect ? hotelSelect.value : "");
 
@@ -501,10 +504,9 @@ document.addEventListener("DOMContentLoaded", () => {
       "https://script.google.com/macros/s/AKfycbwbvumt_OcGpkb8qudYitSLDrVru8W6f0pZD2IDA3YytI6-A8TvyeigL8eLz8heIXzh/exec";
 
     try {
-      await fetch(scriptURL, {
+      const response = await fetch(scriptURL, {
         method: "POST",
         body: formData,
-        mode: "no-cors",
       });
 
       console.log("✅ Запрос успешно отправлен!");
@@ -521,7 +523,6 @@ document.addEventListener("DOMContentLoaded", () => {
       `;
       formContainer.appendChild(thankYouMsg);
 
-      // Button zum Zurückkehren zum Katalog
       const backButton = document.getElementById("backToCatalog");
       backButton.addEventListener("click", () => {
         document.querySelector(".catalog-container").style.display = "block";
@@ -529,7 +530,6 @@ document.addEventListener("DOMContentLoaded", () => {
         form.reset();
         thankYouMsg.remove();
         form.style.display = "block";
-        // ✅ Button wieder aktivieren
         submitButton.disabled = false;
         submitButton.textContent = "Отправить";
       });
@@ -539,7 +539,6 @@ document.addEventListener("DOMContentLoaded", () => {
       errorMsg.style.color = "red";
       errorMsg.textContent = "❌ Ошибка соединения! Попробуйте позже.";
       form.appendChild(errorMsg);
-      // Button wieder aktivieren
       submitButton.disabled = false;
       submitButton.textContent = "Отправить";
     }
