@@ -452,12 +452,12 @@ document.addEventListener("DOMContentLoaded", () => {
       return;
     }
 
-    formData.append("g-recaptcha-response", recaptcha);
-
     submitButton.disabled = true;
     submitButton.textContent = "Отправка...";
 
     const formData = new FormData();
+
+    formData.append("g-recaptcha-response", recaptcha);
     formData.append("fname", document.getElementById("fname").value);
     formData.append("lname", document.getElementById("lname").value);
     formData.append("email", document.getElementById("email").value);
