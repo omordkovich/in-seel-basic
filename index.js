@@ -225,7 +225,11 @@ function renderTourCards(tours) {
 
     const orderBtn = newTourCard.querySelector(".order-btn");
     orderBtn.addEventListener("click", () => {
-      tourImage.src = tour.imgUrl;
+      if (tourImage) {
+        tourImage.src = tour.imgUrl;
+        tourImage.alt = tour.title || "Tour Image";
+      }
+
       tourImage.alt = tour.title || "Tour Image";
       tourId = tour.id;
       tourTitle.textContent = tour.title;
@@ -460,11 +464,11 @@ document.addEventListener("DOMContentLoaded", () => {
     );
     formData.append(
       "startDate",
-      document.getElementById("start-date-select")?.value
+      document.getElementById("start-date-select")?.value || ""
     );
     formData.append(
       "startCity",
-      document.getElementById("start-city-select")?.value
+      document.getElementById("start-city-select")?.value || ""
     );
     formData.append("comments", document.getElementById("comments").value);
     formData.append(
@@ -473,14 +477,12 @@ document.addEventListener("DOMContentLoaded", () => {
     );
     formData.append(
       "userAddress",
-      `${document.getElementById("addressStreet").value} ${
-        document.getElementById("addressCity").value
+      `${document.getElementById("addressStreet")?.value || ""} ${
+        document.getElementById("addressCity")?.value || ""
       }`
     );
-    formData.append(
-      "hotelRoomType",
-      document.getElementById("hotel-room-select").value
-    );
+    const hotelSelect = document.getElementById("hotel-room-select");
+    formData.append("hotelRoomType", hotelSelect ? hotelSelect.value : "");
 
     const childInputs = document.querySelectorAll("#birthdatesContainer input");
     childInputs.forEach((input, index) => {
