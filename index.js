@@ -445,6 +445,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
+    // CAPTCHA prüfen
+    const recaptcha = grecaptcha.getResponse();
+    if (!recaptcha) {
+      alert("⚠ Подтвердите, что вы человек.");
+      return;
+    }
+
+    formData.append("g-recaptcha-response", recaptcha);
 
     submitButton.disabled = true;
     submitButton.textContent = "Отправка...";
