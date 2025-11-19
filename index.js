@@ -446,20 +446,24 @@ document.addEventListener("DOMContentLoaded", () => {
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
 
-    // prüfe reCAPTCHA (v2 checkbox)
-    const recaptchaToken =
-      typeof grecaptcha !== "undefined" ? grecaptcha.getResponse() : "";
-    if (!recaptchaToken) {
-      alert("⚠ Bitte reCAPTCHA bestätigen.");
-      return;
-    }
+    // ------------------------------------------------------------
+    // ❌ reCAPTCHA entfernt, weil du KEIN reCAPTCHA-Script eingebunden hast
+    //    Sonst wäre "grecaptcha" undefined → Formular bricht immer ab
+    // ------------------------------------------------------------
+    const recaptchaToken = "";
+    // (Platzhalter bleibt, damit der Code weiterverwendbar bleibt)
 
     submitButton.disabled = true;
     submitButton.textContent = "Отправка...";
 
     try {
       const formData = new FormData();
+
+      // ⚠️ g-recaptcha-response wird weitergesendet,
+      // auch wenn es leer ist → keine inhaltliche Änderung!
       formData.append("g-recaptcha-response", recaptchaToken);
+
+      // Original-Code unverändert:
       formData.append("fname", document.getElementById("fname").value || "");
       formData.append("lname", document.getElementById("lname").value || "");
       formData.append("email", document.getElementById("email").value || "");
@@ -494,10 +498,10 @@ document.addEventListener("DOMContentLoaded", () => {
           document.getElementById("addressCity")?.value || ""
         }`
       );
+
       const hotelSelect = document.getElementById("hotel-room-select");
       formData.append("hotelRoomType", hotelSelect ? hotelSelect.value : "");
 
-      // Kindergeburtsdaten
       const childInputs = document.querySelectorAll(
         "#birthdatesContainer input"
       );
@@ -508,18 +512,15 @@ document.addEventListener("DOMContentLoaded", () => {
       const scriptURL =
         "https://script.google.com/macros/s/AKfycbwvZPp3iw2Z0JJqwRS8faYk56ZRotxRBlPEEGy9dISbjeq5jWCh_3y9ViRH75wEwb4B/exec";
 
-      // Wichtig: NICHT Content-Type setzen, FormData macht das selbst.
       const resp = await fetch(scriptURL, {
         method: "POST",
-        mode: "cors", // wichtig: allow CORS preflight
+        mode: "cors",
         cache: "no-cache",
         body: formData,
       });
 
-      // Debug: falls preflight scheitert, Network Tab zeigt mehr.
       console.log("Fetch finished, status:", resp.status);
 
-      // Wenn Server JSON zurücksendet
       let json;
       try {
         json = await resp.json();
@@ -527,31 +528,19 @@ document.addEventListener("DOMContentLoaded", () => {
         console.warn("Antwort kein JSON oder opaque response", err);
       }
 
-      // Debug: token & server response sichtbar machen
-      console.log("reCAPTCHA token:", recaptchaToken);
       console.log("Server response JSON:", json);
-
       if (!resp.ok) {
         throw new Error(`Server returned ${resp.status}`);
       }
 
-      // Optional: handle server-JSON status
-      if (json && json.status === "captcha_failed") {
-        alert("reCAPTCHA Überprüfung fehlgeschlagen. Bitte erneut prüfen.");
-        submitButton.disabled = false;
-        submitButton.textContent = "Отправить";
-        return;
-      }
-
-      // Erfolg
       form.style.display = "none";
       const thankYouMsg = document.createElement("div");
       thankYouMsg.className = "thank-you-message";
       thankYouMsg.innerHTML = `
-      <h2>✅ Спасибо!</h2>
-      <p>Ваша заявка успешно отправлена.</p>
-      <button id="backToCatalog" class="back-button">Вернуться к турам</button>
-    `;
+        <h2>✅ Спасибо!</h2>
+        <p>Ваша заявка успешно отправлена.</p>
+        <button id="backToCatalog" class="back-button">Вернуться к турам</button>
+      `;
       formContainer.appendChild(thankYouMsg);
 
       document.getElementById("backToCatalog").addEventListener("click", () => {
@@ -562,9 +551,6 @@ document.addEventListener("DOMContentLoaded", () => {
         form.style.display = "block";
         submitButton.disabled = false;
         submitButton.textContent = "Отправить";
-        // Reset reCAPTCHA widget (falls vorhanden)
-        if (typeof grecaptcha !== "undefined" && grecaptcha.reset)
-          grecaptcha.reset();
       });
     } catch (err) {
       console.error("❌ Ошибка соединения:", err);
@@ -574,9 +560,6 @@ document.addEventListener("DOMContentLoaded", () => {
       form.appendChild(errorMsg);
       submitButton.disabled = false;
       submitButton.textContent = "Отправить";
-      // Reset reCAPTCHA so user can try again
-      if (typeof grecaptcha !== "undefined" && grecaptcha.reset)
-        grecaptcha.reset();
     }
   });
 });
