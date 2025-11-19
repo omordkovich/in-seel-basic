@@ -506,7 +506,7 @@ document.addEventListener("DOMContentLoaded", () => {
       });
 
       const scriptURL =
-        "https://script.google.com/macros/s/AKfycbwbvumt_OcGpkb8qudYitSLDrVru8W6f0pZD2IDA3YytI6-A8TvyeigL8eLz8heIXzh/exec";
+        "https://script.google.com/macros/s/AKfycbwvZPp3iw2Z0JJqwRS8faYk56ZRotxRBlPEEGy9dISbjeq5jWCh_3y9ViRH75wEwb4B/exec";
 
       // Wichtig: NICHT Content-Type setzen, FormData macht das selbst.
       const resp = await fetch(scriptURL, {
