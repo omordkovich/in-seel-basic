@@ -510,7 +510,7 @@ document.addEventListener("DOMContentLoaded", () => {
       });
 
       const scriptURL =
-        "https://script.google.com/macros/s/AKfycbwvZPp3iw2Z0JJqwRS8faYk56ZRotxRBlPEEGy9dISbjeq5jWCh_3y9ViRH75wEwb4B/exec";
+        "https://script.google.com/macros/s/AKfycbzkzJLax9FAeRMwuSWBnqXkAB4-hIx0c8SXkbeKvTuDBAf55x1HiDHLjQJN4cP8hb5B/exec";
 
       const resp = await fetch(scriptURL, {
         method: "POST",
