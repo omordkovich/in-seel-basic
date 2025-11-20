@@ -18,6 +18,7 @@ const dateFromInput = document.getElementById("date-from");
 const dateToInput = document.getElementById("date-to");
 const numChildrenInput = document.getElementById("numChildren");
 const startCityDropdown = document.getElementById("startCity");
+const form = document.getElementById("orderForm");
 
 dateFromInput.value = today;
 dateToInput.value = today;
@@ -435,74 +436,31 @@ searchButton.addEventListener("click", () => {
   }
 });
 
-// Formular-Submit-Handler
 document.addEventListener("DOMContentLoaded", () => {
-  const form = document.querySelector("form");
-  const formContainer = document.querySelector(".form-contrainer");
-  if (!form) return;
-
+  const form = document.getElementById("orderForm");
   const submitButton = form.querySelector('button[type="submit"]');
 
-  // reCAPTCHA vorbereiten
-  grecaptcha.ready(() => {
-    form.addEventListener("submit", async (e) => {
-      e.preventDefault();
-      submitButton.disabled = true;
-      submitButton.textContent = "Отправка...";
+  form.addEventListener("submit", (e) => {
+    e.preventDefault();
+    submitButton.disabled = true;
+    submitButton.textContent = "Отправка...";
 
-      try {
-        const token = await grecaptcha.execute(
-          "6LfuvBIsAAAAAHRd9o5Xywq0f6xIIBA-KvUY22r4",
-          { action: "submit" }
-        );
-        document.getElementById("g-recaptcha-response").value = token;
-
-        const formData = new FormData(form);
-
-        const response = await fetch(form.action, {
-          method: "POST",
-          body: formData,
+    grecaptcha.ready(() => {
+      grecaptcha
+        .execute("6LfuvBIsAAAAAHRd9o5Xywq0f6xIIBA-KvUY22r4.", {
+          action: "submit",
+        })
+        .then((token) => {
+          document.getElementById("g-recaptcha-response").value = token;
+          // Jetzt wird das Formular normal abgeschickt
+          form.submit();
+        })
+        .catch((err) => {
+          console.error(err);
+          submitButton.disabled = false;
+          submitButton.textContent = "Отправить";
+          alert("Ошибка reCAPTCHA. Попробуйте снова.");
         });
-
-        const result = await response.json();
-        console.log(result);
-
-        if (result.status === "success") {
-          // Danke-Nachricht anzeigen
-          const thankYouMsg = document.createElement("div");
-          thankYouMsg.className = "thank-you-message";
-          thankYouMsg.innerHTML = `
-        <h2>✅ Спасибо!</h2>
-        <p>Ваша заявка успешно отправлена.</p>
-        <button id="backToCatalog" class="back-button">Вернуться к турам</button>
-      `;
-          formContainer.appendChild(thankYouMsg);
-          form.style.display = "none";
-
-          document
-            .getElementById("backToCatalog")
-            .addEventListener("click", () => {
-              catalog.style.display = "block";
-              formContainer.style.display = "none";
-              form.reset();
-              thankYouMsg.remove();
-              form.style.display = "block";
-              submitButton.disabled = false;
-              submitButton.textContent = "Отправить";
-            });
-        } else {
-          throw new Error(result.message || "Ошибка отправки формы");
-        }
-      } catch (err) {
-        console.error(err);
-        const errorMsg = document.createElement("p");
-        errorMsg.style.color = "red";
-        errorMsg.textContent = "❌ Ошибка соединения! Попробуйте позже.";
-        form.appendChild(errorMsg);
-      } finally {
-        submitButton.disabled = false;
-        submitButton.textContent = "Отправить";
-      }
     });
   });
 });
