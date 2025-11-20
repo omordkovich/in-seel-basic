@@ -446,109 +446,82 @@ document.addEventListener("DOMContentLoaded", () => {
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
 
-    // ------------------------------------------------------------
-    // ❌ reCAPTCHA entfernt, weil du KEIN reCAPTCHA-Script eingebunden hast
-    //    Sonst wäre "grecaptcha" undefined → Formular bricht immer ab
-    // ------------------------------------------------------------
-    const recaptchaToken = "";
-    // (Platzhalter bleibt, damit der Code weiterverwendbar bleibt)
-
     submitButton.disabled = true;
     submitButton.textContent = "Отправка...";
 
+    const formData = new FormData();
+    formData.append("fname", document.getElementById("fname").value);
+    formData.append("lname", document.getElementById("lname").value);
+    formData.append("email", document.getElementById("email").value);
+    formData.append("phone", document.getElementById("phone").value);
+    formData.append(
+      "numTourists",
+      document.getElementById("numTourists").value
+    );
+    formData.append(
+      "numChildren",
+      document.getElementById("numChildren").value
+    );
+    formData.append(
+      "startDate",
+      document.getElementById("start-date-select")?.value || ""
+    );
+    formData.append(
+      "startCity",
+      document.getElementById("start-city-select")?.value || ""
+    );
+    formData.append("comments", document.getElementById("comments").value);
+    formData.append(
+      "tourTitle",
+      document.getElementById("tourTitle").textContent
+    );
+    formData.append(
+      "userAddress",
+      `${document.getElementById("addressStreet")?.value || ""} ${
+        document.getElementById("addressCity")?.value || ""
+      }`
+    );
+    const hotelSelect = document.getElementById("hotel-room-select");
+    formData.append("hotelRoomType", hotelSelect ? hotelSelect.value : "");
+
+    const childInputs = document.querySelectorAll("#birthdatesContainer input");
+    childInputs.forEach((input, index) => {
+      formData.append(`child_birthdate_${index + 1}`, input.value);
+    });
+
+    const scriptURL =
+      "https://script.google.com/macros/s/AKfycbwbvumt_OcGpkb8qudYitSLDrVru8W6f0pZD2IDA3YytI6-A8TvyeigL8eLz8heIXzh/exec";
+
     try {
-      const formData = new FormData();
-
-      // ⚠️ g-recaptcha-response wird weitergesendet,
-      // auch wenn es leer ist → keine inhaltliche Änderung!
-      formData.append("g-recaptcha-response", recaptchaToken);
-
-      // Original-Code unverändert:
-      formData.append("fname", document.getElementById("fname").value || "");
-      formData.append("lname", document.getElementById("lname").value || "");
-      formData.append("email", document.getElementById("email").value || "");
-      formData.append("phone", document.getElementById("phone").value || "");
-      formData.append(
-        "numTourists",
-        document.getElementById("numTourists").value || ""
-      );
-      formData.append(
-        "numChildren",
-        document.getElementById("numChildren").value || ""
-      );
-      formData.append(
-        "startDate",
-        document.getElementById("start-date-select")?.value || ""
-      );
-      formData.append(
-        "startCity",
-        document.getElementById("start-city-select")?.value || ""
-      );
-      formData.append(
-        "comments",
-        document.getElementById("comments").value || ""
-      );
-      formData.append(
-        "tourTitle",
-        document.getElementById("tourTitle").textContent || ""
-      );
-      formData.append(
-        "userAddress",
-        `${document.getElementById("addressStreet")?.value || ""} ${
-          document.getElementById("addressCity")?.value || ""
-        }`
-      );
-
-      const hotelSelect = document.getElementById("hotel-room-select");
-      formData.append("hotelRoomType", hotelSelect ? hotelSelect.value : "");
-
-      const childInputs = document.querySelectorAll(
-        "#birthdatesContainer input"
-      );
-      childInputs.forEach((input, idx) => {
-        formData.append(`child_birthdate_${idx + 1}`, input.value || "");
-      });
-
-      const scriptURL =
-        "https://script.google.com/macros/s/AKfycbzkzJLax9FAeRMwuSWBnqXkAB4-hIx0c8SXkbeKvTuDBAf55x1HiDHLjQJN4cP8hb5B/exec";
-
-      const resp = await fetch(scriptURL, {
+      await fetch(scriptURL, {
         method: "POST",
-        mode: "cors",
-        cache: "no-cache",
         body: formData,
+        mode: "no-cors",
       });
 
-      console.log("Fetch finished, status:", resp.status);
-
-      let json;
-      try {
-        json = await resp.json();
-      } catch (err) {
-        console.warn("Antwort kein JSON oder opaque response", err);
-      }
-
-      console.log("Server response JSON:", json);
-      if (!resp.ok) {
-        throw new Error(`Server returned ${resp.status}`);
-      }
+      console.log("✅ Запрос успешно отправлен!");
 
       form.style.display = "none";
+
       const thankYouMsg = document.createElement("div");
       thankYouMsg.className = "thank-you-message";
       thankYouMsg.innerHTML = `
         <h2>✅ Спасибо!</h2>
         <p>Ваша заявка успешно отправлена.</p>
+        <p>Наши специалисты свяжутся с вами в ближайшее время.</p>
         <button id="backToCatalog" class="back-button">Вернуться к турам</button>
       `;
       formContainer.appendChild(thankYouMsg);
 
-      document.getElementById("backToCatalog").addEventListener("click", () => {
+      // Button zum Zurückkehren zum Katalog
+      const backButton = document.getElementById("backToCatalog");
+      backButton.addEventListener("click", () => {
         document.querySelector(".catalog-container").style.display = "block";
         formContainer.style.display = "none";
         form.reset();
         thankYouMsg.remove();
         form.style.display = "block";
+        // ✅ Button wieder aktivieren
         submitButton.disabled = false;
         submitButton.textContent = "Отправить";
       });
@@ -558,6 +531,7 @@ document.addEventListener("DOMContentLoaded", () => {
       errorMsg.style.color = "red";
       errorMsg.textContent = "❌ Ошибка соединения! Попробуйте позже.";
       form.appendChild(errorMsg);
+      // Button wieder aktivieren
       submitButton.disabled = false;
       submitButton.textContent = "Отправить";
     }
