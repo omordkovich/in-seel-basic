@@ -445,25 +445,19 @@ document.addEventListener("DOMContentLoaded", () => {
 
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
-
-    // ------------------------------------------------------------
-    // ❌ reCAPTCHA entfernt, weil du KEIN reCAPTCHA-Script eingebunden hast
-    //    Sonst wäre "grecaptcha" undefined → Formular bricht immer ab
-    // ------------------------------------------------------------
-    const recaptchaToken = "";
-    // (Platzhalter bleibt, damit der Code weiterverwendbar bleibt)
-
     submitButton.disabled = true;
     submitButton.textContent = "Отправка...";
 
     try {
       const formData = new FormData();
 
-      // ⚠️ g-recaptcha-response wird weitergesendet,
-      // auch wenn es leer ist → keine inhaltliche Änderung!
+      const recaptchaToken = await grecaptcha.execute(
+        "6LfuvBIsAAAAAHRd9o5Xywq0f6xIIBA-KvUY22r4"
+      );
+
       formData.append("g-recaptcha-response", recaptchaToken);
 
-      // Original-Code unverändert:
+      // Originale Formulardaten übernehmen
       formData.append("fname", document.getElementById("fname").value || "");
       formData.append("lname", document.getElementById("lname").value || "");
       formData.append("email", document.getElementById("email").value || "");
@@ -529,11 +523,11 @@ document.addEventListener("DOMContentLoaded", () => {
       }
 
       console.log("Server response JSON:", json);
-      if (!resp.ok) {
-        throw new Error(`Server returned ${resp.status}`);
-      }
+
+      if (!resp.ok) throw new Error(`Server returned ${resp.status}`);
 
       form.style.display = "none";
+
       const thankYouMsg = document.createElement("div");
       thankYouMsg.className = "thank-you-message";
       thankYouMsg.innerHTML = `

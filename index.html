@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="./styles.css" type="text/css" />
     <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
+    <script src="https://www.google.com/recaptcha/api.js?render=6LfuvBIsAAAAAHRd9o5Xywq0f6xIIBA-KvUY22r4"></script>
     <script defer src="index.js"></script>
   </head>
   <body>
@@ -141,7 +142,7 @@
         </div>
 
         <div class="form-contrainer">
-          <form>
+          <form id="orderForm">
             <h2 id="tourTitle"></h2>
             <p id="tourDescription"></p>
             <img
@@ -236,15 +237,7 @@
             <label for="phone">Коментарий:</label><br />
 
             <input type="text" id="comments" name="comments" /><br /><br />
-            <div
-              class="g-recaptcha"
-              data-sitekey="6LfukxEsAAAAAMXSwW8unU1eSGDld3YVlwP0_KLQ"
-            ></div>
-            <script
-              src="https://www.google.com/recaptcha/api.js"
-              async
-              defer
-            ></script>
+
             <button type="submit">Отправить контактный формуляр</button
             ><br /><br />
           </form>
