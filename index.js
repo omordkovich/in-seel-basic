@@ -451,48 +451,55 @@ document.addEventListener("DOMContentLoaded", () => {
       submitButton.textContent = "Отправка...";
 
       try {
-        // reCAPTCHA Token abrufen
         const token = await grecaptcha.execute(
           "6LfuvBIsAAAAAHRd9o5Xywq0f6xIIBA-KvUY22r4",
           { action: "submit" }
         );
         document.getElementById("g-recaptcha-response").value = token;
 
-        form.submit();
+        const formData = new FormData(form);
 
-        const thankYouMsg = document.createElement("div");
-        thankYouMsg.className = "thank-you-message";
-        thankYouMsg.innerHTML = `
-          <h2>✅ Спасибо!</h2>
-          <p>Ваша заявка успешно отправлена.</p>
-          <button id="backToCatalog" class="back-button">Вернуться к турам</button>
-        `;
-        formContainer.appendChild(thankYouMsg);
-        form.style.display = "none";
+        const response = await fetch(form.action, {
+          method: "POST",
+          body: formData,
+        });
 
-        document
-          .getElementById("backToCatalog")
-          .addEventListener("click", () => {
-            document.querySelector(".catalog-container").style.display =
-              "block";
-            formContainer.style.display = "none";
-            form.reset();
-            thankYouMsg.remove();
-            form.style.display = "block";
-            submitButton.disabled = false;
-            submitButton.textContent = "Отправить";
-          });
+        const result = await response.json();
+        console.log(result);
 
-        setTimeout(() => {
-          submitButton.disabled = false;
-          submitButton.textContent = "Отправить";
-        }, 2000);
+        if (result.status === "success") {
+          // Danke-Nachricht anzeigen
+          const thankYouMsg = document.createElement("div");
+          thankYouMsg.className = "thank-you-message";
+          thankYouMsg.innerHTML = `
+        <h2>✅ Спасибо!</h2>
+        <p>Ваша заявка успешно отправлена.</p>
+        <button id="backToCatalog" class="back-button">Вернуться к турам</button>
+      `;
+          formContainer.appendChild(thankYouMsg);
+          form.style.display = "none";
+
+          document
+            .getElementById("backToCatalog")
+            .addEventListener("click", () => {
+              catalog.style.display = "block";
+              formContainer.style.display = "none";
+              form.reset();
+              thankYouMsg.remove();
+              form.style.display = "block";
+              submitButton.disabled = false;
+              submitButton.textContent = "Отправить";
+            });
+        } else {
+          throw new Error(result.message || "Ошибка отправки формы");
+        }
       } catch (err) {
-        console.error("❌ Ошибка reCAPTCHA или отправки:", err);
+        console.error(err);
         const errorMsg = document.createElement("p");
         errorMsg.style.color = "red";
         errorMsg.textContent = "❌ Ошибка соединения! Попробуйте позже.";
         form.appendChild(errorMsg);
+      } finally {
         submitButton.disabled = false;
         submitButton.textContent = "Отправить";
       }
