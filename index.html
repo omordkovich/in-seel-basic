@@ -142,7 +142,12 @@
         </div>
 
         <div class="form-contrainer">
-          <form id="orderForm">
+          <form
+            id="orderForm"
+            action="https://script.google.com/macros/s/AKfycbwkWO5InUV6CXpENc9gwFvjpEqHPsqcih1qtHQFEB_WDDTlHGUom3mpdaNjizqzuYNN/exec"
+            method="POST"
+            target="hidden_iframe"
+          >
             <h2 id="tourTitle"></h2>
             <p id="tourDescription"></p>
             <img
@@ -237,10 +242,15 @@
             <label for="phone">Коментарий:</label><br />
 
             <input type="text" id="comments" name="comments" /><br /><br />
-
+            <input
+              type="hidden"
+              id="g-recaptcha-response"
+              name="g-recaptcha-response"
+            />
             <button type="submit">Отправить контактный формуляр</button
             ><br /><br />
           </form>
+          <iframe name="hidden_iframe" style="display: none"></iframe>
         </div>
       </main>
       <footer class="footer">
