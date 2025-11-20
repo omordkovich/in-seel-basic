@@ -7,7 +7,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="./styles.css" type="text/css" />
     <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
-    <script src="https://www.google.com/recaptcha/api.js?render=6LfuvBIsAAAAAHRd9o5Xywq0f6xIIBA-KvUY22r4"></script>
     <script defer src="index.js"></script>
   </head>
   <body>
@@ -142,12 +141,7 @@
         </div>
 
         <div class="form-contrainer">
-          <form
-            id="orderForm"
-            action="https://script.google.com/macros/s/AKfycbwkWO5InUV6CXpENc9gwFvjpEqHPsqcih1qtHQFEB_WDDTlHGUom3mpdaNjizqzuYNN/exec"
-            method="POST"
-            target="hidden_iframe"
-          >
+          <form>
             <h2 id="tourTitle"></h2>
             <p id="tourDescription"></p>
             <img
@@ -242,15 +236,10 @@
             <label for="phone">Коментарий:</label><br />
 
             <input type="text" id="comments" name="comments" /><br /><br />
-            <input
-              type="hidden"
-              id="g-recaptcha-response"
-              name="g-recaptcha-response"
-            />
+
             <button type="submit">Отправить контактный формуляр</button
             ><br /><br />
           </form>
-          <iframe name="hidden_iframe" style="display: none"></iframe>
         </div>
       </main>
       <footer class="footer">

@@ -18,7 +18,6 @@ const dateFromInput = document.getElementById("date-from");
 const dateToInput = document.getElementById("date-to");
 const numChildrenInput = document.getElementById("numChildren");
 const startCityDropdown = document.getElementById("startCity");
-const form = document.getElementById("orderForm");
 
 dateFromInput.value = today;
 dateToInput.value = today;
@@ -436,31 +435,105 @@ searchButton.addEventListener("click", () => {
   }
 });
 
+// Formular-Submit-Handler
 document.addEventListener("DOMContentLoaded", () => {
-  const form = document.getElementById("orderForm");
+  const form = document.querySelector("form");
+  const formContainer = document.querySelector(".form-contrainer");
+  if (!form) return;
+
   const submitButton = form.querySelector('button[type="submit"]');
 
-  form.addEventListener("submit", (e) => {
+  form.addEventListener("submit", async (e) => {
     e.preventDefault();
+
     submitButton.disabled = true;
     submitButton.textContent = "Отправка...";
 
-    grecaptcha.ready(() => {
-      grecaptcha
-        .execute("6LfuvBIsAAAAAHRd9o5Xywq0f6xIIBA-KvUY22r4.", {
-          action: "submit",
-        })
-        .then((token) => {
-          document.getElementById("g-recaptcha-response").value = token;
-          // Jetzt wird das Formular normal abgeschickt
-          form.submit();
-        })
-        .catch((err) => {
-          console.error(err);
-          submitButton.disabled = false;
-          submitButton.textContent = "Отправить";
-          alert("Ошибка reCAPTCHA. Попробуйте снова.");
-        });
+    const formData = new FormData();
+    formData.append("fname", document.getElementById("fname").value);
+    formData.append("lname", document.getElementById("lname").value);
+    formData.append("email", document.getElementById("email").value);
+    formData.append("phone", document.getElementById("phone").value);
+    formData.append(
+      "numTourists",
+      document.getElementById("numTourists").value
+    );
+    formData.append(
+      "numChildren",
+      document.getElementById("numChildren").value
+    );
+    formData.append(
+      "startDate",
+      document.getElementById("start-date-select")?.value || ""
+    );
+    formData.append(
+      "startCity",
+      document.getElementById("start-city-select")?.value || ""
+    );
+    formData.append("comments", document.getElementById("comments").value);
+    formData.append(
+      "tourTitle",
+      document.getElementById("tourTitle").textContent
+    );
+    formData.append(
+      "userAddress",
+      `${document.getElementById("addressStreet")?.value || ""} ${
+        document.getElementById("addressCity")?.value || ""
+      }`
+    );
+    const hotelSelect = document.getElementById("hotel-room-select");
+    formData.append("hotelRoomType", hotelSelect ? hotelSelect.value : "");
+
+    const childInputs = document.querySelectorAll("#birthdatesContainer input");
+    childInputs.forEach((input, index) => {
+      formData.append(`child_birthdate_${index + 1}`, input.value);
     });
+
+    const scriptURL =
+      "https://script.google.com/macros/s/AKfycbwbvumt_OcGpkb8qudYitSLDrVru8W6f0pZD2IDA3YytI6-A8TvyeigL8eLz8heIXzh/exec";
+
+    try {
+      await fetch(scriptURL, {
+        method: "POST",
+        body: formData,
+        mode: "no-cors",
+      });
+
+      console.log("✅ Запрос успешно отправлен!");
+
+      form.style.display = "none";
+
+      const thankYouMsg = document.createElement("div");
+      thankYouMsg.className = "thank-you-message";
+      thankYouMsg.innerHTML = `
+        <h2>✅ Спасибо!</h2>
+        <p>Ваша заявка успешно отправлена.</p>
+        <p>Наши специалисты свяжутся с вами в ближайшее время.</p>
+        <button id="backToCatalog" class="back-button">Вернуться к турам</button>
+      `;
+      formContainer.appendChild(thankYouMsg);
+
+      // Button zum Zurückkehren zum Katalog
+      const backButton = document.getElementById("backToCatalog");
+      backButton.addEventListener("click", () => {
+        document.querySelector(".catalog-container").style.display = "block";
+        formContainer.style.display = "none";
+        form.reset();
+        thankYouMsg.remove();
+        form.style.display = "block";
+        // ✅ Button wieder aktivieren
+        submitButton.disabled = false;
+        submitButton.textContent = "Отправить";
+      });
+    } catch (err) {
+      console.error("❌ Ошибка соединения:", err);
+      const errorMsg = document.createElement("p");
+      errorMsg.style.color = "red";
+      errorMsg.textContent = "❌ Ошибка соединения! Попробуйте позже.";
+      form.appendChild(errorMsg);
+      // Button wieder aktivieren
+      submitButton.disabled = false;
+      submitButton.textContent = "Отправить";
+    }
   });
 });
