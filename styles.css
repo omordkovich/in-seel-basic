@@ -83,6 +83,36 @@ a {
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
 }
 
+.form-contrainer {
+  display: flex;
+  background-color: white;
+  padding: 30px;
+  overflow: hidden;
+  border-radius: 4px;
+  min-width: 100px;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+.form-elements {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+.birthdates-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.input-row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 5px;
+}
+
 .btn-container {
   display: flex;
   justify-content: center;

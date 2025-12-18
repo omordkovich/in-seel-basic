@@ -5,8 +5,8 @@ const contactForm = document.querySelector(".form-contrainer");
 const catalog = document.querySelector(".catalog-container");
 const searchButton = document.querySelector(".search-button");
 const tourTypeSelect = document.querySelector("#tour-type");
-const priceSelect = document.querySelector("#user-price");
-const numChildrenSelect = document.getElementById("numChildren");
+const countrySelect = document.querySelector("#tour-country");
+numChildrenSelect = document.getElementById("numChildren");
 const birthdatesContainer = document.getElementById("birthdatesContainer");
 const startDateContainer = document.getElementById("startDateContainer");
 const hotelContainer = document.getElementById("hotelContainer");
@@ -17,6 +17,7 @@ const today = new Date().toISOString().split("T")[0];
 const dateFromInput = document.getElementById("date-from");
 const dateToInput = document.getElementById("date-to");
 const numChildrenInput = document.getElementById("numChildren");
+const numTouristsInput = document.getElementById("numTourists");
 const startCityDropdown = document.getElementById("startCity");
 
 dateFromInput.value = today;
@@ -67,7 +68,7 @@ function renderCityDropdown(startCities) {
   startCityContainer.innerHTML = "";
 
   const label = document.createElement("label");
-  label.textContent = "Город отправления:";
+  label.textContent = "Город отправления*: ";
   label.htmlFor = "start-city-select";
 
   const select = document.createElement("select");
@@ -207,16 +208,35 @@ function renderTourCards(tours) {
                     : ""
                 }
               </div>
-           <div class="tour-dates">
-              ${tour.startDates
-                .map((start, i) => {
-                  const day = String(start.getDate()).padStart(2, "0");
-                  const month = String(start.getMonth() + 1).padStart(2, "0");
-                  const year = start.getFullYear();
-                  return `<p>${day}.${month}.${year}</p>`;
-                })
-                .join("")}
-              </div>
+           
+
+              <div class="tour-dates">
+  ${tour.startDates
+    .map((start, i) => {
+      const startDay = String(start.getDate()).padStart(2, "0");
+      const startMonth = String(start.getMonth() + 1).padStart(2, "0");
+      const startYear = start.getFullYear();
+
+      // Mehrtägige Tour → Rückkehrdatum anzeigen
+      if (
+        Number(tour.durationDays) > 1 &&
+        tour.endDates &&
+        tour.endDates[i]
+      ) {
+        const end = tour.endDates[i];
+        const endDay = String(end.getDate()).padStart(2, "0");
+        const endMonth = String(end.getMonth() + 1).padStart(2, "0");
+        const endYear = end.getFullYear();
+
+        return `<p>${startDay}.${startMonth}.${startYear} - ${endDay}.${endMonth}.${endYear}</p>`;
+      }
+
+      // Eintägige Tour
+      return `<p>${startDay}.${startMonth}.${startYear}</p>`;
+    })
+    .join("")}
+</div>
+
            
       <div class="btn-container">
       <button class="order-btn">Больше дат</button>
@@ -249,7 +269,7 @@ function renderHotelFields(durationDays) {
 
   if (durationDays > 1) {
     const label = document.createElement("label");
-    label.textContent = "Размещение в гостинице:";
+    label.textContent = "Размещение в гостинице*:";
     label.htmlFor = "hotel-room-select";
 
     const select = document.createElement("select");
@@ -287,22 +307,53 @@ function renderHotelFields(durationDays) {
 }
 
 // Geburtsdaten Felder rendern
+
+numChildrenInput.addEventListener("input", () => {
+  let count = parseInt(numChildrenInput.value, 10);
+
+  if (isNaN(count) || count < 0) {
+    count = 0;
+  }
+
+  if (count > 10) {
+    count = 10;
+  }
+
+  numChildrenInput.value = count;
+
+  renderBirthdateFields(count);
+});
+
+numTouristsInput.addEventListener("input", () => {
+  let count = parseInt(numTouristsInput.value);
+  if (isNaN(count) || count < 1) {
+    count = 1;
+  }
+  numTouristsInput.value = count;
+});
+
 function renderBirthdateFields(count) {
   birthdatesContainer.innerHTML = "";
 
-  if (count > 0) {
+  if (count > 0 && count <= 10) {
     for (let i = 1; i <= count; i++) {
+      const row = document.createElement("div");
+      row.className = "input-row";
+
       const label = document.createElement("label");
       label.textContent = `Дата рождения ребёнка ${i}:`;
+      label.htmlFor = `child_birthdate_${i}`;
+
       const input = document.createElement("input");
       input.type = "date";
       input.name = `child_birthdate_${i}`;
+      input.id = `child_birthdate_${i}`;
       input.required = true;
 
-      birthdatesContainer.appendChild(label);
-      birthdatesContainer.appendChild(document.createElement("br"));
-      birthdatesContainer.appendChild(input);
-      birthdatesContainer.appendChild(document.createElement("br"));
+      row.appendChild(label);
+      row.appendChild(input);
+
+      birthdatesContainer.appendChild(row);
     }
   }
 }
@@ -321,7 +372,7 @@ function renderDatesFields(startDates) {
   startDateContainer.innerHTML = "";
 
   const label = document.createElement("label");
-  label.textContent = "Дата отправления:";
+  label.textContent = "Дата отправления*: ";
   label.htmlFor = "start-date-select";
 
   const select = document.createElement("select");
@@ -385,7 +436,16 @@ searchButton.addEventListener("click", () => {
       t.startDates.some((d) => d <= toDateValue)
     );
   }
+  // Länder-Filte
+  if (countrySelect && countrySelect.value !== "all") {
+    const selectedCountry = countrySelect.value.trim();
 
+    filteredTours = filteredTours.filter(
+      (tour) =>
+        Array.isArray(tour.countries) &&
+        tour.countries.includes(selectedCountry)
+    );
+  }
   // Tourtyp-Filter
   if (tourTypeSelect.value && tourTypeSelect.value !== "all") {
     filteredTours = filteredTours.filter((tour) => {

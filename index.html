@@ -28,12 +28,23 @@
               </select>
             </div>
             <div class="user-input-container">
-              <label for="user-price">Страны</label>
-              <select name="price" id="user-price" class="user-select-input">
+              <label for="tour-country">Страны</label>
+              <select name="price" id="tour-country" class="user-select-input">
                 <option value="all">Все страны</option>
-                <option value="Frankreich">Франция</option>
-                <option value="Italien">Италия</option>
-                <option value="Belgien">Бельгия</option>
+                <option value="Франция">Франция</option>
+                <option value="Италия">Италия</option>
+                <option value="Бельгия">Бельгия</option>
+                <option value="Чехия">Чехия</option>
+                <option value="Голландия">Голландия</option>
+                <option value="Монако">Монако</option>
+                <option value="Люксембург">Люксембург</option>
+                <option value="Германия">Германия</option>
+                <option value="Швейцария">Швейцария</option>
+                <option value="Испания">Испания</option>
+                <option value="Австрия">Австрия</option>
+                <option value="Дания">Дания</option>
+                <option value="Швеция">Швеция</option>
+                <option value="Норвегия">Норвегия</option>
               </select>
             </div>
             <div class="user-input-container">
@@ -141,7 +152,7 @@
         </div>
 
         <div class="form-contrainer">
-          <form>
+          <form class="form-elements">
             <h2 id="tourTitle"></h2>
             <p id="tourDescription"></p>
             <img
@@ -150,102 +161,133 @@
               src=""
               alt="Tour Image"
             />
+            <h1>Информация о заказчике</h1>
+            <div>
+              <label for="fname">Имя*: </label>
+              <input
+                type="text"
+                id="fname"
+                name="fname"
+                placeholder="Введите имя"
+              />
+            </div>
+            <div>
+              <label for="lname">Фамилия*:</label>
+              <input
+                type="text"
+                id="lname"
+                name="lname"
+                placeholder="Введите фамилию"
+                required
+              />
+            </div>
 
-            <br /><br />
+            <h1>Адрес прописки:</h1>
 
-            <label for="fname">Имя*:</label><br />
-            <input
-              type="text"
-              id="fname"
-              name="fname"
-              placeholder="Введите имя"
-            /><br /><br />
-
-            <label for="lname">Фамилия*:</label><br />
-            <input
-              type="text"
-              id="lname"
-              name="lname"
-              placeholder="Введите фамилию"
-              required
-            /><br /><br />
-            <div class="adress-container">
-              <p>Адрес прописки:</p>
-              <label for="addressStreet">Улица, номер дома (латиницой)*:</label
-              ><br />
+            <div>
+              <label for="addressStreet"
+                >Улица, номер дома (латиницой)*:
+              </label>
               <input
                 type="text"
                 id="addressStreet"
                 name="addressStreet"
                 placeholder="Alexanderplatz 1"
                 required
-              /><br /><br />
-              <label for="addressCity">Инлекс, город (латиницой)*:</label><br />
+              />
+            </div>
+
+            <div>
+              <label for="addressCity">Индекс, город (латиницой)*: </label>
               <input
                 type="text"
                 id="addressCity"
                 name="addressCity"
                 placeholder="DE-10178 Berlin"
                 required
-              /><br /><br />
+              />
             </div>
-            <label for="numTourists">Количество туистов (от 18 лет):</label
-            ><br />
-            <input
-              type="number"
-              id="numTourists"
-              name="numTourists"
-              min="1"
-              value="1"
-              required
-            /><br /><br />
-            <label for="numChildren"
-              >Количество несовершеннолетних (до 18 лет):</label
-            ><br />
-            <input
-              type="number"
-              id="numChildren"
-              name="numChildren"
-              min="0"
-              value="0"
-              required
-            />
-            <br /><br />
-            <div id="birthdatesContainer"></div>
+
+            <div>
+              <label for="email">Email*:</label>
+              <input
+                type="email"
+                id="email"
+                name="email"
+                placeholder="yourname@email.com"
+                required
+              />
+            </div>
+
+            <div>
+              <label for="phone">Телефон*:</label>
+              <input
+                type="tel"
+                id="phone"
+                name="phone"
+                placeholder="+49221 778 98 702 "
+                required
+              />
+            </div>
+
+            <div>
+              <label for="numTourists">Количество туистов (от 18 лет):</label>
+              <input
+                type="number"
+                id="numTourists"
+                name="numTourists"
+                min="1"
+                value="1"
+                required
+              />
+            </div>
+
+            <div class="input-row">
+              <label for="numChildren"
+                >Количество несовершеннолетних (до 18 лет):</label
+              >
+              <input
+                type="number"
+                id="numChildren"
+                name="numChildren"
+                min="0"
+                max="10"
+                value="0"
+                required
+              />
+            </div>
+            <div id="birthdatesContainer" class="birthdates-container"></div>
             <div id="startCityContainer"></div>
             <div id="startDateContainer"></div>
             <div id="hotelContainer"></div>
-            <br /><br />
-            <label for="email">Email*:</label><br />
-            <input
-              type="email"
-              id="email"
-              name="email"
-              placeholder="yourname@email.com"
-              required
-            /><br /><br />
 
-            <label for="phone">Телефон*:</label><br />
-            <input
-              type="tel"
-              id="phone"
-              name="phone"
-              placeholder="+49221 778 98 702 "
-              required
-            /><br /><br />
-            <label for="phone">Коментарий:</label><br />
+            <div>
+              <label for="phone">Коментарий:</label>
 
-            <input type="text" id="comments" name="comments" /><br /><br />
+              <input type="text" id="comments" name="comments" />
+            </div>
 
-            <button type="submit">Отправить контактный формуляр</button
-            ><br /><br />
+            <button type="submit">Отправить контактный формуляр</button>
           </form>
         </div>
       </main>
       <footer class="footer">
-        <p>DE-50735 Köln, Sebastianstraße 97</p>
         <a href="mailto:info@in-seel.de">info@in-seel.de</a>
-        <p>tel: +49221 778 98 702</p>
+        <p>
+          <p>Alexander Kaul IN-SEEL Tourservice</p>
+
+          <p>DE 70 3705 0299 0311 5534 53</p>
+
+          <p>Kreissparkasse Köln</p>
+
+          <p>Id.Nr.: DE 421904323</p>
+          <p>St.Nr.:204/5157/2973</p>
+          <p>Sebastianstr. 97</p>
+
+          <p>DE-50735 Köln</p>
+
+          <p>0049 221 778 98 702</p>
+        </p>
       </footer>
     </div>
   </body>
