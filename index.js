@@ -12,6 +12,7 @@ const startDateContainer = document.getElementById("startDateContainer");
 const hotelContainer = document.getElementById("hotelContainer");
 const tourTitle = document.getElementById("tourTitle");
 const tourDescription = document.getElementById("tourDescription");
+const tourDates = document.getElementById("tourDates");
 const tourImage = document.getElementById("tourImage");
 const today = new Date().toISOString().split("T")[0];
 const dateFromInput = document.getElementById("date-from");
@@ -177,6 +178,30 @@ Papa.parse(sheetUrl, {
   },
 });
 
+//Tour Daten Rendern
+function renderTourDates(tour) {
+  return tour.startDates
+    .map((start, i) => {
+      const startDay = String(start.getDate()).padStart(2, "0");
+      const startMonth = String(start.getMonth() + 1).padStart(2, "0");
+      const startYear = start.getFullYear();
+
+      // Mehrtägige Tour
+      if (Number(tour.durationDays) > 1 && tour.endDates && tour.endDates[i]) {
+        const end = tour.endDates[i];
+        const endDay = String(end.getDate()).padStart(2, "0");
+        const endMonth = String(end.getMonth() + 1).padStart(2, "0");
+        const endYear = end.getFullYear();
+
+        return `<p>с ${startDay}.${startMonth}.${startYear} по ${endDay}.${endMonth}.${endYear}</p>`;
+      }
+
+      // Eintägige Tour
+      return `<p>${startDay}.${startMonth}.${startYear}</p>`;
+    })
+    .join("");
+}
+
 // Tours rendern
 function renderTourCards(tours) {
   tourList.innerHTML = "";
@@ -210,31 +235,8 @@ function renderTourCards(tours) {
               </div>
            
 
-              <div class="tour-dates">
-  ${tour.startDates
-    .map((start, i) => {
-      const startDay = String(start.getDate()).padStart(2, "0");
-      const startMonth = String(start.getMonth() + 1).padStart(2, "0");
-      const startYear = start.getFullYear();
-
-      // Mehrtägige Tour → Rückkehrdatum anzeigen
-      if (
-        Number(tour.durationDays) > 1 &&
-        tour.endDates &&
-        tour.endDates[i]
-      ) {
-        const end = tour.endDates[i];
-        const endDay = String(end.getDate()).padStart(2, "0");
-        const endMonth = String(end.getMonth() + 1).padStart(2, "0");
-        const endYear = end.getFullYear();
-
-        return `<p>${startDay}.${startMonth}.${startYear} - ${endDay}.${endMonth}.${endYear}</p>`;
-      }
-
-      // Eintägige Tour
-      return `<p>${startDay}.${startMonth}.${startYear}</p>`;
-    })
-    .join("")}
+           <div class="tour-dates">
+  ${renderTourDates(tour)}
 </div>
 
            
@@ -254,6 +256,9 @@ function renderTourCards(tours) {
       tourId = tour.id;
       tourTitle.textContent = tour.title;
       tourDescription.textContent = tour.description;
+
+      tourDates.innerHTML = renderTourDates(tour);
+
       catalog.style.display = "none";
       contactForm.style.display = "flex";
       renderCityDropdown(tour.startCities);

@@ -154,13 +154,21 @@
         <div class="form-contrainer">
           <form class="form-elements">
             <h2 id="tourTitle"></h2>
-            <p id="tourDescription"></p>
-            <img
-              id="tourImage"
-              class="tour-img-description"
-              src=""
-              alt="Tour Image"
-            />
+            <div class="tour-info">
+              <div>
+                <p id="tourDescription"></p>
+                <img
+                  id="tourImage"
+                  class="tour-img-description"
+                  src=""
+                  alt="Tour Image"
+                />
+              </div>
+              <div>
+                <h1>Даты:</h1>
+                <p id="tourDates" class="tour-dates-list"></p>
+              </div>
+            </div>
             <h1>Информация о заказчике</h1>
             <div>
               <label for="fname">Имя*: </label>
@@ -186,7 +194,7 @@
 
             <div>
               <label for="addressStreet"
-                >Улица, номер дома (латиницой)*:
+                >Улица, номер дома (латиницей)*:
               </label>
               <input
                 type="text"
@@ -198,7 +206,7 @@
             </div>
 
             <div>
-              <label for="addressCity">Индекс, город (латиницой)*: </label>
+              <label for="addressCity">Индекс, город (латиницей)*: </label>
               <input
                 type="text"
                 id="addressCity"
@@ -267,13 +275,15 @@
               <input type="text" id="comments" name="comments" />
             </div>
 
-            <button type="submit">Отправить контактный формуляр</button>
+            <button type="submit" class="order-btn">
+              Отправить контактный формуляр
+            </button>
           </form>
         </div>
       </main>
       <footer class="footer">
         <a href="mailto:info@in-seel.de">info@in-seel.de</a>
-        <p>
+        <div>
           <p>Alexander Kaul IN-SEEL Tourservice</p>
 
           <p>DE 70 3705 0299 0311 5534 53</p>
@@ -287,7 +297,7 @@
           <p>DE-50735 Köln</p>
 
           <p>0049 221 778 98 702</p>
-        </p>
+        </div>
       </footer>
     </div>
   </body>
