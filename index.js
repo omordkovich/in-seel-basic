@@ -12,6 +12,13 @@ const startDateContainer = document.getElementById("startDateContainer");
 const hotelContainer = document.getElementById("hotelContainer");
 const tourTitle = document.getElementById("tourTitle");
 const tourDescription = document.getElementById("tourDescription");
+const tourIncluded = document.getElementById("tourIncluded");
+const tourExcluded = document.getElementById("tourExcluded");
+const tourDays = document.getElementById("tourDays");
+const busStops = document.getElementById("busStops");
+const daysCounter = document.getElementById("daysCounter");
+const additionalInfo = document.getElementById("additionalInfo");
+const importantInfo = document.getElementById("importantInfo");
 const tourDates = document.getElementById("tourDates");
 const tourImage = document.getElementById("tourImage");
 const today = new Date().toISOString().split("T")[0];
@@ -104,6 +111,86 @@ const sheetUrl =
   "https://docs.google.com/spreadsheets/d/e/2PACX-1vRNfC967UzQ8Lu5SN7rrpETre-ILwsnKZ4K6bbmMz_fHvEyrLyFQy-5ixxn278r6FLo_fHdXVvqZBIH/pub?gid=0&single=true&output=csv";
 
 let tours = [];
+const BUS_STOPS = [
+  {
+    key: "dortmund",
+    address: "Dortmund Hbf, ZOB, Steinstr. 48, Nordausgang",
+  },
+  {
+    key: "bochum",
+    address: "44791 Bochum, Stadionring 20",
+  },
+  {
+    key: "essen",
+    address: "Essen Hbf, ZOB-Südseite, Freiheit, Bushaltestelle",
+  },
+  {
+    key: "duesseldorf",
+    address: "Düsseldorf Hbf, Worringerstr. 109, Bushaltestelle",
+  },
+  {
+    key: "koeln",
+    address:
+      "Köln Hbf, Goldgasse, Ecke Breslauer Platz/Johannisstraße 34 bei Kommerz Hotel",
+  },
+  {
+    key: "bonn",
+    address: "Bonn Hbf, Quantiusstr. 1",
+  },
+  {
+    key: "siegen",
+    address: "Siegen, Koblenzerstr. 151, Siegerlandhalle",
+  },
+  {
+    key: "montabaur",
+    address: "ICE Montabaur Bf, Haupteingang, Autobahnseite",
+  },
+  {
+    key: "limburg",
+    address: "Limburg ICE Bf, HEM Tankstelle, Brüsselerstr. 2, 65552, Abf. SÜD",
+  },
+  {
+    key: "frankfurt",
+    address: "Frankfurt Hbf, Stuttgarterstr. 26, Busterminal",
+  },
+  {
+    key: "darmstadt",
+    address: "Darmstadt Hbf, Zweifalltorweg",
+  },
+  {
+    key: "mannheim",
+    address: "Mannheim Hbf, Heinrich-von-Stefan-Str.",
+  },
+  {
+    key: "karlsruhe",
+    address: "Karlsruhe Hbf, Hintern Bahnhof",
+  },
+  {
+    key: "offenburg",
+    address: "Offenburg, Parkplatz im Kreisverkehr 33a, Ausfahrt 55",
+  },
+  {
+    key: "lahr_schwarzwald",
+    address: "A5 Ausfahrt 56 Lahr/Schwarzwald, Einsteinallee 2, Tankstelle",
+  },
+  {
+    key: "freiburg",
+    address: "Freiburg Hbf, ZOB, Bismarckallee",
+  },
+  {
+    key: "stuttgart",
+    address: "70629 Stuttgart, Flughafenstr. 70, OMV Tankstelle",
+  },
+  {
+    key: "ulm",
+    address: "89073 Ulm Hbf, Bahnhof Platz",
+  },
+  {
+    key: "aachen",
+    address:
+      "52078 Aachen Brand, Eckenerstr. 2, Shell Tankstelle, gegen Ausfahrt A44",
+  },
+];
 
 Papa.parse(sheetUrl, {
   download: true,
@@ -113,6 +200,17 @@ Papa.parse(sheetUrl, {
     tours = results.data
       .map((tour) => {
         const isActive = String(tour.active).trim().toLowerCase() === "true";
+
+        const busSchedule = BUS_STOPS.map((stop) => {
+          const time = tour[stop.key];
+
+          if (!time || !time.trim()) return null;
+
+          return {
+            address: stop.address,
+            time: time.trim(),
+          };
+        }).filter(Boolean);
 
         const startCities = tour.startCities
           ? tour.startCities.split(";").map((c) => c.trim())
@@ -154,6 +252,12 @@ Papa.parse(sheetUrl, {
         return {
           ...tour,
           description: tour.description,
+          additionalInfo: tour.additionalDescription,
+          importantInfo: tour.importantInfo,
+          durationDays: tour.durationDays,
+          durationNights: tour.durationNights,
+          accommodationNights: tour.accommodationDurationNights,
+          hotel: tour.hotelType,
           active: isActive,
           startCities,
           startDates,
@@ -163,6 +267,15 @@ Papa.parse(sheetUrl, {
           startPrice,
           durationDays,
           countries,
+          firstDayDescription: tour.firstDayDescription?.trim() || "",
+          secondDayDescription: tour.secondDayDescription?.trim() || "",
+          thirdDayDescription: tour.thirdDayDescription?.trim() || "",
+          fourthDayDescription: tour.fourthDayDescription?.trim() || "",
+          fifthDayDescription: tour.fifthDayDescription?.trim() || "",
+          sixthDayDescription: tour.sixthDayDescription?.trim() || "",
+          seventhDayDescription: tour.seventhDayDescription?.trim() || "",
+          eighthDayDescription: tour.eighthDayDescription?.trim() || "",
+          busSchedule,
         };
       })
       .filter((tour) => tour && tour.active);
@@ -177,6 +290,118 @@ Papa.parse(sheetUrl, {
     renderTourCards(tours);
   },
 });
+function openTourDetails(tour) {
+  if (tourImage) {
+    tourImage.src = tour.imgUrl;
+    tourImage.alt = tour.title || "Tour Image";
+  }
+
+  tourId = tour.id;
+  tourTitle.textContent = tour.title;
+  tourDescription.textContent = tour.description;
+  tourDates.innerHTML = renderTourDates(tour);
+
+  catalog.style.display = "none";
+  contactForm.style.display = "flex";
+
+  renderCityDropdown(tour.startCities);
+  renderDatesFields(tour.startDates);
+  renderHotelFields(tour.durationDays);
+}
+
+//Render Buszeitplan
+function renderBusSchedule(tour) {
+  if (!tour.busSchedule?.length) return "";
+
+  return `
+    <ul class="bus-schedule">
+      ${tour.busSchedule
+        .map(
+          (stop) => `<li><strong>${stop.time}</strong> - ${stop.address}</li>`
+        )
+        .join("")}
+    </ul>
+  `;
+}
+
+//Render Additional Info
+function renderAdditionalInfo(tour) {
+  if (!tour.additionalInfo || tour.additionalInfo.length.trim === "") return "";
+  return `
+</br>
+<h1>Дополнительная информация: </h1>
+${tour.additionalInfo}
+`;
+}
+
+//Render Important Info
+function renderImportantInfo(tour) {
+  if (!tour.importantInfo || tour.importantInfo.trim() === "") return "";
+  return `
+<br>
+<h1>ВАЖНО!: </h1>
+${tour.importantInfo}
+`;
+}
+
+//Render Days Counter
+function renderDaysCounter(tour) {
+  return `
+  <br>
+  <p>
+    ${tour.durationDays} ${
+    tour.durationDays == 1
+      ? "день"
+      : tour.durationDays >= 2 && tour.durationDays <= 4
+      ? "дня"
+      : "дней"
+  }; 
+    ${tour.durationNights} ${
+    tour.durationNights == 1
+      ? "ночь"
+      : tour.durationNights >= 2 && tour.durationNights <= 4
+      ? "ночи"
+      : "ночей"
+  }; 
+    ${tour.accommodationNights} ${
+    tour.accommodationNights == 1
+      ? "ночь"
+      : tour.accommodationNights >= 2 && tour.accommodationNights <= 4
+      ? "ночи"
+      : "ночей"
+  } в отеле
+  </p>
+  `;
+}
+
+//Tagesplan Rendern
+function renderDaysDescription(tour) {
+  const dayMap = [
+    { key: "firstDayDescription", label: "Первый день" },
+    { key: "secondDayDescription", label: "Второй день" },
+    { key: "thirdDayDescription", label: "Третий день" },
+    { key: "fourthDayDescription", label: "Четвертый день" },
+    { key: "fifthDayDescription", label: "Пятый день" },
+    { key: "sixthDayDescription", label: "Шестой день" },
+    { key: "seventhDayDescription", label: "Седьмой день" },
+    { key: "eighthDayDescription", label: "Восьмой день" },
+  ];
+
+  return dayMap
+    .map(({ key, label }) => {
+      const text = tour[key];
+
+      if (!text || !text.trim()) return "";
+
+      return `
+  <div class="tour-day">
+    <span style="font-weight: bold">${label}:</span>
+    <span>${text}</span>
+  </div>
+`;
+    })
+    .join("");
+}
 
 //Tour Daten Rendern
 function renderTourDates(tour) {
@@ -202,6 +427,59 @@ function renderTourDates(tour) {
     .join("");
 }
 
+//Render Included
+function renderTourIncluded(tour) {
+  if (!Array.isArray(tour.included) || tour.included.length === 0) return "";
+  return `
+    <br />
+    <h1 style="text-align: center">Для ВАС:</h1>
+     <ul">
+      ${tour.included
+        .map((item) => `<li class="check">✅ ${item}</li>`)
+        .join("")}
+    </ul>
+  `;
+}
+
+//Render Excluded
+function renderTourExcluded(tour) {
+  if (!Array.isArray(tour.excluded) || tour.excluded.length === 0) return "";
+
+  return `
+    <br />  
+    <h1 style="text-align: center">Дополнительно оплачивается:</h1>
+    <ul">
+      ${tour.excluded.map((item) => `<li class="ex">✅ ${item}</li>`).join("")}
+    </ul>
+  `;
+}
+
+function openTourDetails(tour) {
+  if (tourImage) {
+    tourImage.src = tour.imgUrl;
+    tourImage.alt = tour.title || "Tour Image";
+  }
+
+  tourId = tour.id;
+  tourTitle.textContent = tour.title;
+  tourDescription.textContent = tour.description;
+  tourDays.innerHTML = renderDaysDescription(tour);
+  tourIncluded.innerHTML = renderTourIncluded(tour);
+  tourExcluded.innerHTML = renderTourExcluded(tour);
+  busStops.innerHTML = renderBusSchedule(tour);
+  tourDates.innerHTML = renderTourDates(tour);
+  daysCounter.innerHTML = renderDaysCounter(tour);
+  additionalInfo.innerHTML = renderAdditionalInfo(tour);
+  importantInfo.innerHTML = renderImportantInfo(tour);
+
+  catalog.style.display = "none";
+  contactForm.style.display = "flex";
+
+  renderCityDropdown(tour.startCities);
+  renderDatesFields(tour.startDates);
+  renderHotelFields(tour.durationDays);
+}
+
 // Tours rendern
 function renderTourCards(tours) {
   tourList.innerHTML = "";
@@ -214,9 +492,7 @@ function renderTourCards(tours) {
         <img src="${tour.imgUrl}" alt="${tour.title} image" />
         <div class="overlay">
         <div class="overlay-text">
-              <div class="tour-dates">
               ${tour.countries}
-              </div>
             <p class="spartPrice">${tour.price ? tour.price + "€" : ""}</p>
           </div>  
         </div>
@@ -237,6 +513,7 @@ function renderTourCards(tours) {
 
            <div class="tour-dates">
   ${renderTourDates(tour)}
+  
 </div>
 
            
@@ -244,31 +521,21 @@ function renderTourCards(tours) {
       <button class="order-btn">Больше дат</button>
       </div>
     `;
+    const previewArea = newTourCard.querySelector(".tour-img");
+    previewArea.addEventListener("click", () => {
+      openTourDetails(tour);
+    });
 
     const orderBtn = newTourCard.querySelector(".order-btn");
+
     orderBtn.addEventListener("click", () => {
-      if (tourImage) {
-        tourImage.src = tour.imgUrl;
-        tourImage.alt = tour.title || "Tour Image";
-      }
-
-      tourImage.alt = tour.title || "Tour Image";
-      tourId = tour.id;
-      tourTitle.textContent = tour.title;
-      tourDescription.textContent = tour.description;
-
-      tourDates.innerHTML = renderTourDates(tour);
-
-      catalog.style.display = "none";
-      contactForm.style.display = "flex";
-      renderCityDropdown(tour.startCities);
-      renderDatesFields(tour.startDates);
-      renderHotelFields(tour.durationDays);
+      openTourDetails(tour);
     });
 
     tourList.appendChild(newTourCard);
   });
 }
+
 function renderHotelFields(durationDays) {
   hotelContainer.innerHTML = "";
 
