@@ -285,18 +285,18 @@ a {
 
 .check,
 .ex {
-  list-style: none; /* Standardpunkte entfernen */
-  padding-left: 0; /* Einrückung entfernen */
+  list-style: none;
+  padding-left: 0;
 }
 
 .check::before {
-  content: "✔️ "; /* Haken vor jedem Listenelement */
-  margin-right: 5px; /* optionaler Abstand */
+  content: "✔️ ";
+  margin-right: 5px;
 }
 
 .ex::before {
-  content: "❌ "; /* Haken vor jedem Listenelement */
-  margin-right: 5px; /* optionaler Abstand */
+  content: "❌ ";
+  margin-right: 5px;
 }
 
 .search-button,

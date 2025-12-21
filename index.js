@@ -434,9 +434,7 @@ function renderTourIncluded(tour) {
     <br />
     <h1 style="text-align: center">Для ВАС:</h1>
      <ul">
-      ${tour.included
-        .map((item) => `<li class="check">✅ ${item}</li>`)
-        .join("")}
+      ${tour.included.map((item) => `<li class="check"> ${item}</li>`).join("")}
     </ul>
   `;
 }
@@ -449,7 +447,7 @@ function renderTourExcluded(tour) {
     <br />  
     <h1 style="text-align: center">Дополнительно оплачивается:</h1>
     <ul">
-      ${tour.excluded.map((item) => `<li class="ex">✅ ${item}</li>`).join("")}
+      ${tour.excluded.map((item) => `<li class="ex"> ${item}</li>`).join("")}
     </ul>
   `;
 }
