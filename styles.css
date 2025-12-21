@@ -272,13 +272,15 @@ a {
   height: 40px;
   cursor: pointer;
   margin-top: 0;
-  width: 150px;
   flex: 0 0 150px;
 }
 
+.search-button {
+  width: 150px;
+}
 .order-btn {
-  width: fit-content;
-  height: 40px;
+  max-width: fit-content;
+  flex: auto;
 }
 
 .check,
@@ -342,7 +344,7 @@ a {
 
 .footer {
   display: flex;
-  align-items: center;
+  align-items: start;
   justify-content: space-between;
   width: 100%;
   height: fit-content;
