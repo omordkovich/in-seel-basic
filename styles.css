@@ -273,6 +273,7 @@ a {
   cursor: pointer;
   margin-top: 0;
   width: 150px;
+  flex: 0 0 150px;
 }
 
 .order-btn {
