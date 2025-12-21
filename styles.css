@@ -261,6 +261,7 @@ a {
   border: none;
   display: flex;
   align-items: center;
+  justify-content: center;
   background: linear-gradient(
     135deg,
     rgba(255, 233, 102, 1) 0%,
@@ -271,6 +272,11 @@ a {
   height: 40px;
   cursor: pointer;
   margin-top: 0;
+  width: 150px;
+}
+
+.order-btn {
+  width: fit-content;
 }
 
 .check,
@@ -316,7 +322,7 @@ a {
   display: flex;
   justify-content: space-around;
   flex-direction: row;
-  max-height: 500px;
+  max-height: none;
   column-gap: 30px;
   flex-wrap: wrap;
   text-align: center;

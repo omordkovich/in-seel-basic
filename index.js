@@ -330,7 +330,7 @@ function renderAdditionalInfo(tour) {
   return `
 </br>
 <h1>Дополнительная информация: </h1>
-${tour.additionalInfo}
+<p style="text-align: start">${tour.additionalInfo} </p>
 `;
 }
 
@@ -340,7 +340,7 @@ function renderImportantInfo(tour) {
   return `
 <br>
 <h1>ВАЖНО!: </h1>
-${tour.importantInfo}
+<p style="text-align: start">${tour.importantInfo}</p>
 `;
 }
 
