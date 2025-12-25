@@ -870,7 +870,7 @@ datenschutzVermittlerBtn.addEventListener("click", () => {
 //render Widerrufsbelehrung
 wiederrufBtn.addEventListener("click", () => {
   infoTextContainer.innerHTML = `<section id="widerruf">
-  <h1>Widerrufsbelehrung / Информация о праве на отмену</h1>
+  <h1>Widerrufsbelehrung</h1>
 
   <p>Verbraucher haben das Recht, binnen vierzehn Tagen ohne Angabe von Gründen diesen Vertrag zu widerrufen.</p>
 
@@ -904,6 +904,7 @@ wiederrufBtn.addEventListener("click", () => {
 
   <hr>
 
+  <h1>Информация о праве на отмену</h1>
   <p>
     Потребители имеют право в течение четырнадцати дней без объяснения
     причин отменить этот договор.
