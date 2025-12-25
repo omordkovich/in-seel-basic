@@ -27,6 +27,14 @@ const dateToInput = document.getElementById("date-to");
 const numChildrenInput = document.getElementById("numChildren");
 const numTouristsInput = document.getElementById("numTourists");
 const startCityDropdown = document.getElementById("startCity");
+const infoTextContainer = document.getElementById("info-text-container");
+const datenschutzBtn = document.getElementById("datenschutz-btn");
+const impressumBtn = document.getElementById("impressum-btn");
+const agbBtn = document.getElementById("agb-btn");
+const wiederrufBtn = document.getElementById("wiederruf-btn");
+const datenschutzVermittlerBtn = document.getElementById(
+  "datenschutz-vermittler-btn"
+);
 
 dateFromInput.value = today;
 dateToInput.value = today;
@@ -673,6 +681,798 @@ function renderDatesFields(startDates) {
 
 numChildrenSelect.addEventListener("change", () => {
   renderBirthdateFields(parseInt(numChildrenSelect.value, 10));
+});
+
+//render Datenschutzhinweise für nebenberufliche Vermittler
+
+datenschutzVermittlerBtn.addEventListener("click", () => {
+  infoTextContainer.innerHTML = `<section id="datenschutz-vermittler">
+  <h1>Datenschutzhinweise für nebenberufliche Vermittler</h1>
+  <p><strong>Informationsblatt zur Datenverarbeitung (§ 34d Abs. 8 GewO)</strong><br>Stand: 2026</p>
+
+  <h2>1. Verantwortlicher und Kontakt Datenschutzbeauftragter</h2>
+  <p>
+    Verantwortlich für die Datenverarbeitung ist:<br>
+    <strong>Alexander Kaul – IN-SEEL Tourservice</strong><br>
+    Sebastianstr. 97<br>
+    DE-50735 Köln<br>
+    Telefon: +49 221 778 98 702<br>
+    E-Mail: <a href="mailto:info@in-seel.de">info@in-seel.de</a><br><br>
+    Den Datenschutzbeauftragten erreichen Sie unter derselben Adresse oder per E-Mail.
+  </p>
+
+  <h2>2. Verarbeitete Datenkategorien</h2>
+  <ul>
+    <li>Personenstammdaten (Vorname, Nachname, Namenszusätze, Vermittler- bzw. Agenturnummer)</li>
+    <li>Bankverbindungsdaten</li>
+    <li>Kommunikationsdaten (geschäftliche Anschrift, Telefon, E-Mail)</li>
+    <li>IHK-Registrierung / Vermittlerregisternummer</li>
+    <li>Steueridentifikationsnummer</li>
+    <li>Produktions- / Provisionsdaten</li>
+  </ul>
+  <p>Gegebenenfalls werden auch Daten von Untervermittlern oder Mitarbeitern verarbeitet.</p>
+
+  <h2>3. Zweck und Rechtsgrundlage der Datenverarbeitung</h2>
+  <p>
+    Wir verarbeiten Ihre Daten zur Vertragsdurchführung, Abrechnung, Weiterbildungszwecken,
+    Produktionsstatistiken und zur Bereitstellung digitaler Präsenzen.
+    Rechtsgrundlage ist Art. 6 Abs. 1 a) oder b) DSGVO. Einwilligungen können jederzeit widerrufen werden.
+    In Einzelfällen verarbeiten wir Daten zur Wahrung berechtigter Interessen (Art. 6 Abs. 1 f) DSGVO).
+  </p>
+
+  <h2>4. Empfänger der Daten</h2>
+  <p>
+    Daten werden nur an Personen oder Dienstleister weitergegeben, die diese
+    zur Erfüllung unserer vertraglichen oder gesetzlichen Pflichten benötigen:
+  </p>
+  <ul>
+    <li>Bankpartner (SEPA Zahlungsträger)</li>
+    <li>Kooperationspartner und Produktgeber</li>
+    <li>BaFin (Meldepflichten, z. B. Solvency II)</li>
+    <li>Gerichte oder Behörden</li>
+    <li>Drittschuldner bei Pfändungen</li>
+    <li>Insolvenzverwalter</li>
+  </ul>
+
+  <h2>5. Speicherdauer</h2>
+  <p>
+    Wir löschen personenbezogene Daten, sobald sie nicht mehr erforderlich sind,
+    und speichern sie, solange gesetzliche Nachweis- und Aufbewahrungspflichten bestehen
+    (bis zu 10 Jahre, ggf. bis 30 Jahre bei titulierten Ansprüchen).
+  </p>
+
+  <h2>6. Betroffenenrechte</h2>
+  <ul>
+    <li>Auskunft über gespeicherte Daten</li>
+    <li>Berichtigung unrichtiger Daten</li>
+    <li>Löschung der Daten</li>
+    <li>Einschränkung der Verarbeitung</li>
+    <li>Widerspruch gegen die Verarbeitung</li>
+    <li>Herausgabe der bereitgestellten Daten in maschinenlesbarem Format</li>
+  </ul>
+
+  <h2>7. Datenschutzaufsichtsbehörde</h2>
+  <p>
+    Landesbeauftragte für Datenschutz und Informationsfreiheit NRW<br>
+    Postfach 20 04 44, 40102 Düsseldorf<br>
+    E-Mail: <a href="mailto:poststelle@ldi.nrw.de">poststelle@ldi.nrw.de</a>
+  </p>
+
+  <h2>8. Bereitstellung der Daten</h2>
+  <p>
+    Die Bereitstellung Ihrer Daten ist erforderlich, um einen Vermittlervertrag
+    abzuschließen und zu erfüllen.
+  </p>
+
+  <h2>9. Datenübermittlung in Drittländer</h2>
+  <p>
+    Sofern Daten an Dienstleister außerhalb des EWR übermittelt werden,
+    erfolgt dies nur bei angemessenem Datenschutzniveau oder geeigneten
+    Garantien (z. B. EU-Standardvertragsklauseln).
+  </p>
+
+  <h2>10. Automatisierte Entscheidungen / Profiling</h2>
+  <p>
+    Es finden keine automatisierten Einzelfallentscheidungen oder Profiling-Maßnahmen statt.
+  </p>
+  <hr><br>
+  <h1>Политика конфиденциальности для внештатных посредников</h1>
+  <p><strong>Информационный лист по обработке данных (§ 34d Abs. 8 GewO)</strong><br>Дата: 2026</p>
+
+  <h2>1. Ответственный и контакт</h2>
+  <p>
+    Ответственный за обработку данных:<br>
+    <strong>Alexander Kaul – IN-SEEL Tourservice</strong><br>
+    Sebastianstr. 97<br>
+    DE-50735 Кёльн<br>
+    Тел.: +49 221 778 98 702<br>
+    E-Mail: <a href="mailto:info@in-seel.de">info@in-seel.de</a><br>
+    Контакт с ответственным по защите данных возможен по тому же адресу или по e-mail.
+  </p>
+
+  <h2>2. Обрабатываемые категории данных</h2>
+  <ul>
+    <li>Персональные данные (имя, фамилия, добавочные данные, номер посредника или агентства)</li>
+    <li>Банковские реквизиты</li>
+    <li>Контактные данные (адрес, телефон, e-mail)</li>
+    <li>Регистрация в IHK / номер реестра посредников</li>
+    <li>Идентификационный номер налогоплательщика</li>
+    <li>Данные о продажах / комиссиях</li>
+  </ul>
+  <p>При необходимости также обрабатываются данные суб-посредников или сотрудников.</p>
+
+  <h2>3. Цель и правовая основа обработки</h2>
+  <p>
+    Данные обрабатываются для выполнения договора, расчёта комиссий,
+    образовательных целей, статистики и управления продажами,
+    а также для предоставления цифровых ресурсов.
+    Правовая основа: Art. 6 Abs. 1 a) или b) DSGVO. Согласие может быть отозвано в любое время.
+  </p>
+
+  <h2>4. Получатели данных</h2>
+  <p>
+    Данные передаются только тем лицам или подрядчикам, которым они
+    необходимы для выполнения законных или договорных обязанностей:
+  </p>
+  <ul>
+    <li>Банковские партнёры (SEPA)</li>
+    <li>Партнёры и поставщики продукции</li>
+    <li>BaFin (отчётность, Solvency II)</li>
+    <li>Суды или органы власти</li>
+    <li>Должники при взыскании</li>
+    <li>Конкурсные управляющие</li>
+  </ul>
+
+  <h2>5. Срок хранения</h2>
+  <p>
+    Данные удаляются, когда они больше не нужны, и хранятся
+    в рамках законных сроков (до 10 лет, при судебных решениях – до 30 лет).
+  </p>
+
+  <h2>6. Права субъекта данных</h2>
+  <ul>
+    <li>Получение информации о своих данных</li>
+    <li>Исправление неверных данных</li>
+    <li>Удаление данных</li>
+    <li>Ограничение обработки</li>
+    <li>Возражение против обработки</li>
+    <li>Получение данных в машиночитаемом формате</li>
+  </ul>
+
+  <h2>7. Контактный орган по защите данных</h2>
+  <p>
+    Landesbeauftragte für Datenschutz und Informationsfreiheit NRW<br>
+    Postfach 20 04 44, 40102 Düsseldorf<br>
+    E-Mail: <a href="mailto:poststelle@ldi.nrw.de">poststelle@ldi.nrw.de</a>
+  </p>
+
+  <h2>8. Обязательная передача данных</h2>
+  <p>
+    Передача данных необходима для заключения и выполнения договора посредника.
+  </p>
+
+  <h2>9. Передача данных в третьи страны</h2>
+  <p>
+    При передаче данных в страны за пределами ЕЭЗ осуществляется
+    только при подтверждённом уровне защиты данных или с соответствующими гарантиями
+    (например, стандартные договорные положения ЕС).
+  </p>
+
+  <h2>10. Автоматизированные решения / профилирование</h2>
+  <p>
+    Автоматизированные индивидуальные решения и профилирование не применяются.
+  </p>
+
+</section>
+`;
+});
+
+//render Widerrufsbelehrung
+wiederrufBtn.addEventListener("click", () => {
+  infoTextContainer.innerHTML = `<section id="widerruf">
+  <h1>Widerrufsbelehrung / Информация о праве на отмену</h1>
+
+  <p>Verbraucher haben das Recht, binnen vierzehn Tagen ohne Angabe von Gründen diesen Vertrag zu widerrufen.</p>
+
+  <h3>Widerrufsfrist</h3>
+  <p>
+    Die Widerrufsfrist beträgt 14 Tage ab dem Tag des Vertragsabschlusses
+    per E-Mail.
+  </p>
+
+  <h3>Widerrufsfolgen</h3>
+  <p>
+    Wenn Sie den Vertrag widerrufen, sind etwaige empfangene Leistungen
+    zurückzugewähren. Für übermittelte personenbezogene Daten erfolgt
+    keine automatische Löschung, diese können jedoch auf Wunsch gelöscht werden.
+  </p>
+
+  <h3>Widerrufsrecht ausüben</h3>
+  <p>
+    Um Ihr Widerrufsrecht auszuüben, senden Sie bitte eine eindeutige
+    Erklärung per E-Mail an:
+    <a href="mailto:info@in-seel.de">info@in-seel.de</a>
+  </p>
+
+  <h3>Besondere Hinweise</h3>
+  <p>
+    Das Widerrufsrecht gilt nicht für Verträge zur Erbringung von
+    Dienstleistungen, wenn diese vollständig erbracht wurden und
+    mit Ihrer ausdrücklichen Zustimmung begonnen haben, bevor Sie
+    Ihr Widerrufsrecht ausgeübt haben.
+  </p>
+
+  <hr>
+
+  <p>
+    Потребители имеют право в течение четырнадцати дней без объяснения
+    причин отменить этот договор.
+  </p>
+
+  <h3>Срок отмены</h3>
+  <p>
+    Срок отмены составляет 14 дней с момента заключения договора
+    по электронной почте.
+  </p>
+
+  <h3>Последствия отмены</h3>
+  <p>
+    В случае отмены договора необходимо вернуть полученные услуги.
+    Переданные персональные данные не удаляются автоматически, но
+    могут быть удалены по вашему запросу.
+  </p>
+
+  <h3>Реализация права на отмену</h3>
+  <p>
+    Чтобы воспользоваться правом на отмену, отправьте
+    однозначное заявление по электронной почте на адрес:
+    <a href="mailto:info@in-seel.de">info@in-seel.de</a>
+  </p>
+
+  <h3>Особые замечания</h3>
+  <p>
+    Право на отмену не распространяется на договоры по оказанию
+    услуг, которые были полностью выполнены с вашего явного
+    согласия до использования права на отмену.
+  </p>
+
+  <p><strong>Stand / Дата: 2026</strong></p>
+</section>
+`;
+});
+//render AGB
+agbBtn.addEventListener("click", () => {
+  infoTextContainer.innerHTML = `<section id="agb">
+  <h1>Allgemeine Geschäftsbedingungen (AGB)</h1>
+
+  <h3>1. Geltungsbereich</h3>
+  <p>
+    Diese Allgemeinen Geschäftsbedingungen gelten für alle Anfragen,
+    Vermittlungen und Leistungen zwischen
+    <strong>Alexander Kaul – IN-SEEL Tourservice</strong>
+    (nachfolgend „Anbieter“) und seinen Kunden.
+  </p>
+
+  <h3>2. Leistungen</h3>
+  <p>
+    Der Anbieter erbringt touristische Dienstleistungen und
+    Vermittlungsleistungen. Die Website dient ausschließlich der
+    Information. Ein Vertragsabschluss erfolgt nicht über die Website,
+    sondern ausschließlich über individuelle Kommunikation,
+    insbesondere per E-Mail.
+  </p>
+
+  <h3>3. Vertragsschluss</h3>
+  <p>
+    Ein Vertrag kommt erst zustande, wenn ein individuelles Angebot
+    vom Anbieter erstellt und vom Kunden ausdrücklich
+    (z. B. per E-Mail) bestätigt wird.
+  </p>
+
+  <h3>4. Preise und Zahlungsbedingungen</h3>
+  <p>
+    Preise werden individuell vereinbart und dem Kunden im Angebot
+    mitgeteilt. Über diese Website erfolgen keine Zahlungen.
+  </p>
+
+  <h3>5. Mitwirkungspflichten des Kunden</h3>
+  <p>
+    Der Kunde verpflichtet sich, alle für die Leistungserbringung
+    erforderlichen Angaben vollständig und wahrheitsgemäß zu machen.
+  </p>
+
+  <h3>6. Haftung</h3>
+  <p>
+    Der Anbieter haftet nur für Schäden, die auf vorsätzlicher oder
+    grob fahrlässiger Pflichtverletzung beruhen.
+    Bei einfacher Fahrlässigkeit haftet der Anbieter nur bei Verletzung
+    wesentlicher Vertragspflichten.
+  </p>
+
+  <p>
+    Eine Haftung für Leistungen Dritter oder vermittelter Leistungsträger
+    ist – soweit gesetzlich zulässig – ausgeschlossen.
+  </p>
+
+  <h3>7. Haftung für Inhalte und Links</h3>
+  <p>
+    Die Inhalte dieser Website werden mit größter Sorgfalt erstellt.
+    Für die Richtigkeit, Vollständigkeit und Aktualität der Inhalte
+    wird jedoch keine Gewähr übernommen.
+  </p>
+
+  <p>
+    Diese Website kann Links zu externen Websites Dritter enthalten.
+    Auf deren Inhalte hat der Anbieter keinen Einfluss und übernimmt
+    hierfür keine Haftung.
+  </p>
+
+  <h3>8. Datenschutz</h3>
+  <p>
+    Die Verarbeitung personenbezogener Daten erfolgt gemäß den
+    geltenden Datenschutzbestimmungen. Einzelheiten sind der
+    <a href="#datenschutz">Datenschutzerklärung</a> zu entnehmen.
+  </p>
+
+  <h3>9. Schlussbestimmungen</h3>
+  <p>
+    Es gilt das Recht der Bundesrepublik Deutschland.
+    Gerichtsstand ist – soweit gesetzlich zulässig – der Sitz des Anbieters.
+  </p>
+
+  <p>
+    Sollten einzelne Bestimmungen dieser AGB unwirksam sein oder werden,
+    bleibt die Wirksamkeit der übrigen Bestimmungen unberührt.
+  </p>
+
+  <hr>
+
+  <h3>1. Область применения</h3>
+  <p>
+    Настоящие Общие условия ведения деятельности применяются ко всем
+    запросам, посредническим услугам и договорам между
+    <strong>Alexander Kaul – IN-SEEL Tourservice</strong>
+    (далее — «Исполнитель») и клиентами.
+  </p>
+
+  <h3>2. Услуги</h3>
+  <p>
+    Исполнитель оказывает туристические и посреднические услуги.
+    Сайт носит исключительно информационный характер.
+    Заключение договора через сайт не осуществляется.
+    Договор заключается только посредством индивидуального общения,
+    в частности по электронной почте.
+  </p>
+
+  <h3>3. Заключение договора</h3>
+  <p>
+    Договор считается заключённым только после направления
+    индивидуального предложения Исполнителем и его
+    подтверждения Клиентом (например, по электронной почте).
+  </p>
+
+  <h3>4. Цены и условия оплаты</h3>
+  <p>
+    Цены согласовываются индивидуально и указываются в предложении.
+    Оплата через данный сайт не производится.
+  </p>
+
+  <h3>5. Обязанности клиента</h3>
+  <p>
+    Клиент обязуется предоставлять всю необходимую информацию
+    для оказания услуг в полном и достоверном объёме.
+  </p>
+
+  <h3>6. Ответственность</h3>
+  <p>
+    Исполнитель несёт ответственность только за ущерб,
+    причинённый умышленно или вследствие грубой неосторожности.
+    При простой неосторожности ответственность возможна
+    только при нарушении существенных договорных обязательств.
+  </p>
+
+  <p>
+    Ответственность за услуги третьих лиц или посредников
+    исключается в рамках, допустимых законодательством.
+  </p>
+
+  <h3>7. Ответственность за содержание и ссылки</h3>
+  <p>
+    Содержание сайта создаётся с максимальной тщательностью,
+    однако Исполнитель не гарантирует его актуальность,
+    точность и полноту.
+  </p>
+
+  <p>
+    Сайт может содержать ссылки на сторонние ресурсы,
+    за содержание которых Исполнитель ответственности не несёт.
+  </p>
+
+  <h3>8. Защита данных</h3>
+  <p>
+    Обработка персональных данных осуществляется в соответствии
+    с действующим законодательством о защите данных.
+    Подробности указаны в разделе
+    <a href="#datenschutz">Политика конфиденциальности</a>.
+  </p>
+
+  <h3>9. Заключительные положения</h3>
+  <p>
+    Применяется право Федеративной Республики Германия.
+    Место судебной подсудности — по месту нахождения Исполнителя,
+    если это допустимо законом.
+  </p>
+
+  <p>
+    Если отдельные положения данных условий окажутся недействительными,
+    это не влияет на действительность остальных положений.
+  </p>
+
+  <p><strong>Stand / Дата: 2026</strong></p>
+</section>
+`;
+});
+
+//render Impressum
+impressumBtn.addEventListener("click", () => {
+  infoTextContainer.innerHTML = `<section id="impressum">
+  <h1>Impressum</h1>
+
+  <p>
+    <strong>Alexander Kaul – IN-SEEL Tourservice</strong><br>
+    Sebastianstr. 97<br>
+    DE-50735 Köln<br>
+    Deutschland
+  </p>
+
+  <p>
+    Telefon: +49 (0) 221 778 98 702<br>
+    E-Mail: <a href="mailto:info@in-seel.de">info@in-seel.de</a><br>
+    Internet: <a href="https://www.in-seel.de" target="_blank" rel="noopener noreferrer">www.in-seel.de</a>
+  </p>
+
+  <h2>Bankverbindung</h2>
+  <p>
+    Kreditinstitut: Kreissparkasse Köln<br>
+    IBAN: DE 70 3705 0299 0311 5534 53
+  </p>
+
+  <p>
+    Steuer-ID: DE 421904323<br>
+    Steuernummer: 204/5157/2973
+  </p>
+
+  <h2>Haftungsausschluss</h2>
+  <p>
+    Der Betreiber dieser Website übernimmt keine Haftung für die Inhalte der
+    bereitgestellten Informationen. Es wird keine Gewähr für die Richtigkeit,
+    Vollständigkeit und Aktualität der Inhalte übernommen.
+  </p>
+
+  <p>
+    Haftungsansprüche gegen den Betreiber, welche sich auf Schäden materieller
+    oder ideeller Art beziehen, die durch die Nutzung oder Nichtnutzung der
+    dargebotenen Informationen verursacht wurden, sind grundsätzlich ausgeschlossen,
+    sofern kein nachweislich vorsätzliches oder grob fahrlässiges Verschulden vorliegt.
+  </p>
+
+  <h2>Haftung für Links</h2>
+  <p>
+    Diese Website enthält Verlinkungen zu externen Websites Dritter, auf deren
+    Inhalte kein Einfluss besteht. Deshalb kann für diese fremden Inhalte keine
+    Gewähr übernommen werden.
+  </p>
+
+  <p>
+    Für die Inhalte der verlinkten Seiten ist stets der jeweilige Anbieter oder
+    Betreiber der Seiten verantwortlich. Zum Zeitpunkt der Verlinkung wurden
+    die verlinkten Seiten auf mögliche Rechtsverstöße überprüft.
+  </p>
+
+  <p>
+    Eine permanente inhaltliche Kontrolle der verlinkten Seiten ist ohne konkrete
+    Anhaltspunkte einer Rechtsverletzung nicht zumutbar. Bei Bekanntwerden von
+    Rechtsverletzungen werden derartige Links umgehend entfernt.
+  </p>
+
+  <p><strong>Stand: 2026</strong></p>
+</section>
+`;
+});
+//render Datenschutzerklärung
+datenschutzBtn.addEventListener("click", () => {
+  infoTextContainer.innerHTML = `
+    <section id="datenschutz">
+      <h1>Datenschutzerklärung</h1>
+
+  <p>
+    Der Schutz Ihrer persönlichen Daten ist uns ein wichtiges Anliegen.
+    Nachfolgend informieren wir Sie darüber, wie personenbezogene Daten auf
+    dieser Website verarbeitet werden.
+  </p>
+
+  <h2>1. Verantwortlicher</h2>
+  <p>
+    Verantwortlich für die Datenverarbeitung auf dieser Website ist:<br><br>
+
+    <strong>Alexander Kaul – IN-SEEL Tourservice</strong><br>
+    Sebastianstr. 97<br>
+    DE-50735 Köln<br><br>
+
+    Telefon: +49 (0) 221 778 98 702<br>
+    E-Mail: <a href="mailto:info@in-seel.de">info@in-seel.de</a>
+  </p>
+
+  <h2>2. Hosting und Bereitstellung der Website</h2>
+  <p>
+    Diese Website wird über <strong>GitHub Pages</strong> bereitgestellt.
+    Beim Aufruf der Website werden durch GitHub automatisch Informationen
+    in sogenannten Server-Logfiles erhoben und gespeichert.
+  </p>
+
+  <p>
+    Zu diesen Daten können gehören:
+  </p>
+  <ul>
+    <li>IP-Adresse</li>
+    <li>Datum und Uhrzeit der Anfrage</li>
+    <li>Browsertyp und -version</li>
+    <li>Betriebssystem</li>
+    <li>Referrer-URL</li>
+  </ul>
+
+  <p>
+    Die Verarbeitung erfolgt zur technischen Bereitstellung und Sicherheit
+    der Website gemäß Art. 6 Abs. 1 lit. f DSGVO.
+  </p>
+
+  <p>
+    Da GitHub Pages ein Dienst der GitHub Inc., USA ist, kann es zu einer
+    Übermittlung von Daten in ein Drittland kommen. GitHub verpflichtet sich,
+    geeignete Datenschutzgarantien gemäß Art. 44 ff. DSGVO einzuhalten.
+  </p>
+
+  <h2>3. Domain- und DNS-Verwaltung</h2>
+  <p>
+    Die Domain dieser Website wird über die STRATO AG verwaltet.
+    STRATO verarbeitet personenbezogene Daten ausschließlich im Rahmen
+    der Domain- und DNS-Verwaltung.
+  </p>
+
+  <h2>4. Nutzung von Google-Diensten (Google Sheets & Scripts)</h2>
+  <p>
+    Für die technische Pflege und Verwaltung von Website-Inhalten werden
+    Google Sheets und Google Scripts verwendet.
+  </p>
+
+  <p>
+    <strong>Es werden hierbei keine personenbezogenen Daten von Website-Besuchern
+    gespeichert oder verarbeitet.</strong> Die Nutzung dient ausschließlich
+    der inhaltlichen Verwaltung der Website.
+  </p>
+
+  <p>
+    Der Zugriff auf diese Dienste erfolgt über ein Google-Konto
+    (<a href="mailto:inseleuropa@gmail.com">inseleuropa@gmail.com</a>).
+  </p>
+
+  <h2>5. Kontaktaufnahme per E-Mail</h2>
+  <p>
+    Wenn Sie uns per E-Mail kontaktieren, werden die von Ihnen übermittelten
+    personenbezogenen Daten (z. B. Name, E-Mail-Adresse, Inhalt der Nachricht)
+    ausschließlich zur Bearbeitung Ihrer Anfrage verarbeitet.
+  </p>
+
+  <p>
+    Die Rechtsgrundlage hierfür ist Art. 6 Abs. 1 lit. b DSGVO
+    (vorvertragliche Maßnahmen) oder Art. 6 Abs. 1 lit. f DSGVO
+    (berechtigtes Interesse an der Kommunikation).
+  </p>
+
+  <p>
+    Nach erfolgreicher Übermittlung Ihrer Daten erhalten Sie eine
+    Bestätigung per E-Mail.
+  </p>
+
+  <h2>6. Weitergabe von Daten</h2>
+  <p>
+    Eine Weitergabe Ihrer personenbezogenen Daten an Dritte erfolgt nicht,
+    sofern keine gesetzliche Verpflichtung hierzu besteht.
+  </p>
+
+  <h2>7. Speicherdauer</h2>
+  <p>
+    Personenbezogene Daten werden nur so lange gespeichert, wie dies für
+    die Bearbeitung Ihrer Anfrage erforderlich ist oder gesetzliche
+    Aufbewahrungsfristen bestehen.
+  </p>
+
+  <h2>8. Ihre Rechte</h2>
+  <p>
+    Sie haben das Recht:
+  </p>
+  <ul>
+    <li>Auskunft über Ihre gespeicherten Daten zu erhalten</li>
+    <li>Berichtigung unrichtiger Daten zu verlangen</li>
+    <li>Löschung Ihrer Daten zu verlangen</li>
+    <li>Einschränkung der Verarbeitung zu verlangen</li>
+    <li>Widerspruch gegen die Verarbeitung einzulegen</li>
+    <li>Datenübertragbarkeit zu verlangen</li>
+  </ul>
+
+  <h2>9. Beschwerderecht</h2>
+  <p>
+    Sie haben das Recht, sich bei einer Datenschutzaufsichtsbehörde zu
+    beschweren. Zuständig ist:
+  </p>
+
+  <p>
+    <strong>Landesbeauftragte für Datenschutz und Informationsfreiheit
+    Nordrhein-Westfalen</strong><br>
+    Postfach 20 04 44<br>
+    40102 Düsseldorf<br>
+    E-Mail:
+    <a href="mailto:poststelle@ldi.nrw.de">poststelle@ldi.nrw.de</a>
+  </p>
+
+  <h2>10. SSL- bzw. TLS-Verschlüsselung</h2>
+  <p>
+    Diese Website nutzt eine SSL- bzw. TLS-Verschlüsselung, um die
+    Übertragung vertraulicher Inhalte zu schützen.
+  </p>
+
+  <h2>11. Änderungen dieser Datenschutzerklärung</h2>
+  <p>
+    Wir behalten uns vor, diese Datenschutzerklärung anzupassen, um sie
+    an rechtliche Anforderungen oder technische Änderungen anzupassen.
+  </p>
+
+  <p><strong>Stand: 2026</strong></p><br><br>
+
+  <hr>
+
+  <h1>Политика конфиденциальности</h1>
+
+  <p>
+    Защита ваших персональных данных для нас очень важна.
+    Ниже мы информируем вас о том, как обрабатываются персональные данные
+    на этом веб-сайте.
+  </p>
+
+  <h2>1. Ответственный за обработку данных</h2>
+  <p>
+    Ответственным за обработку данных на этом сайте является:<br><br>
+
+    <strong>Alexander Kaul – IN-SEEL Tourservice</strong><br>
+    Sebastianstr. 97<br>
+    DE-50735 Кёльн<br><br>
+
+    Телефон: +49 (0) 221 778 98 702<br>
+    E-Mail: <a href="mailto:info@in-seel.de">info@in-seel.de</a>
+  </p>
+
+  <h2>2. Хостинг и предоставление сайта</h2>
+  <p>
+    Этот сайт размещён на <strong>GitHub Pages</strong>.
+    При обращении к сайту GitHub автоматически собирает
+    информацию в так называемых лог-файлах сервера.
+  </p>
+
+  <p>Эти данные могут включать:</p>
+  <ul>
+    <li>IP-адрес</li>
+    <li>Дата и время запроса</li>
+    <li>Тип и версия браузера</li>
+    <li>Операционная система</li>
+    <li>Referrer-URL</li>
+  </ul>
+
+  <p>
+    Обработка данных необходима для технического предоставления
+    сайта и обеспечения его безопасности согласно Art. 6 Abs. 1 lit. f DSGVO.
+  </p>
+
+  <p>
+    Поскольку GitHub Pages — это сервис компании GitHub Inc., США,
+    данные могут передаваться в третьи страны. GitHub обязуется
+    соблюдать соответствующие гарантии защиты данных
+    согласно Art. 44 ff. DSGVO.
+  </p>
+
+  <h2>3. Управление доменом и DNS</h2>
+  <p>
+    Домен этого сайта управляется компанией STRATO AG.
+    STRATO обрабатывает персональные данные исключительно
+    в рамках управления доменом и DNS.
+  </p>
+
+  <h2>4. Использование сервисов Google (Google Sheets & Scripts)</h2>
+  <p>
+    Для технического обслуживания и управления контентом сайта
+    используются Google Sheets и Google Scripts.
+  </p>
+
+  <p>
+    <strong>Персональные данные посетителей сайта не сохраняются и не обрабатываются.</strong>
+    Использование сервисов исключительно для управления содержимым сайта.
+  </p>
+
+  <p>
+    Доступ к этим сервисам осуществляется через Google-аккаунт
+    (<a href="mailto:inseleuropa@gmail.com">inseleuropa@gmail.com</a>).
+  </p>
+
+  <h2>5. Связь по электронной почте</h2>
+  <p>
+    Если вы связываетесь с нами по электронной почте,
+    предоставленные вами персональные данные
+    (например, имя, адрес электронной почты, содержание сообщения)
+    используются исключительно для обработки вашего запроса.
+  </p>
+
+  <p>
+    Правовая основа: Art. 6 Abs. 1 lit. b DSGVO
+    (договорные / предварительные меры) или
+    Art. 6 Abs. 1 lit. f DSGVO (законный интерес коммуникации).
+  </p>
+
+  <p>
+    После успешной отправки данных вы получите подтверждение по электронной почте.
+  </p>
+
+  <h2>6. Передача данных</h2>
+  <p>
+    Передача ваших персональных данных третьим лицам не осуществляется,
+    если нет юридического обязательства.
+  </p>
+
+  <h2>7. Срок хранения</h2>
+  <p>
+    Персональные данные хранятся только столько,
+    сколько необходимо для обработки вашего запроса
+    или в рамках законных сроков хранения.
+  </p>
+
+  <h2>8. Ваши права</h2>
+  <p>Вы имеете право:</p>
+  <ul>
+    <li>Получить информацию о сохранённых данных</li>
+    <li>Исправить некорректные данные</li>
+    <li>Запросить удаление данных</li>
+    <li>Ограничить обработку данных</li>
+    <li>Возразить против обработки</li>
+    <li>Получить данные в машиночитаемом формате</li>
+  </ul>
+
+  <h2>9. Право на жалобу</h2>
+  <p>
+    Вы имеете право подать жалобу в орган по защите данных:
+  </p>
+
+  <p>
+    <strong>Landesbeauftragte für Datenschutz und Informationsfreiheit Nordrhein-Westfalen</strong><br>
+    Postfach 20 04 44<br>
+    40102 Дюссельдорф<br>
+    E-Mail:
+    <a href="mailto:poststelle@ldi.nrw.de">poststelle@ldi.nrw.de</a>
+  </p>
+
+  <h2>10. SSL / TLS шифрование</h2>
+  <p>
+    Этот сайт размещён на GitHub Pages и автоматически использует
+    SSL/TLS шифрование для безопасной передачи данных.
+  </p>
+
+  <h2>11. Изменения политики конфиденциальности</h2>
+  <p>
+    Мы оставляем за собой право адаптировать эту политику
+    конфиденциальности в соответствии с изменениями законодательства
+    или техническими изменениями.
+  </p>
+
+  <p><strong>Stand / Дата: 2026</strong></p>
+    </section>
+  `;
 });
 
 // Filters

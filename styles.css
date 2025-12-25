@@ -56,6 +56,11 @@ a {
   z-index: 10;
 }
 
+.info-container {
+  display: flex;
+  flex-direction: column;
+}
+
 .main {
   flex: 1;
   display: flex;
