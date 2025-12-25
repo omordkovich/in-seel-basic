@@ -161,6 +161,7 @@ a {
   flex-direction: row;
   width: 100%;
   max-height: fit-content;
+  flex-wrap: wrap;
   padding: 10px 20px;
   background-color: #2c9bd6;
   color: white;
