@@ -1127,7 +1127,15 @@ impressumBtn.addEventListener("click", () => {
   </p>
 
   <p>
-    Telefon: +49 (0) 221 778 98 702<br>
+    Telefon (Köln): +49 (0) 221 778 98 -701/-702<br>
+    Telefon (Bonn): +49 (0) 228 854 490<br>
+    Telefon (Düsseldorf): +49 (0) 155 656 167 20<br>
+    Telefon (Dortmund): +49 (0) 176 471 835 99<br>
+    Telefon (Frankfurt): +49 (0) 698 241 99 / +49 (0) 152 536 425 29<br>
+    Telefon (Karlsruhe): +49 (0) 721 830 126 7 / +49 (0) 152 026 593 99<br>
+    Telefon (Wuppertal): +49 (0) 176 840 844 75<br>
+
+
     E-Mail: <a href="mailto:info@in-seel.de">info@in-seel.de</a><br>
     Internet: <a href="https://www.in-seel.de" target="_blank" rel="noopener noreferrer">www.in-seel.de</a>
   </p>
