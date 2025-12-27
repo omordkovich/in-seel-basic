@@ -1324,11 +1324,17 @@ datenschutzBtn.addEventListener("click", () => {
     <a href="mailto:poststelle@ldi.nrw.de">poststelle@ldi.nrw.de</a>
   </p>
 
-  <h2>10. SSL- bzw. TLS-Verschlüsselung</h2>
-  <p>
-    Diese Website nutzt eine SSL- bzw. TLS-Verschlüsselung, um die
-    Übertragung vertraulicher Inhalte zu schützen.
-  </p>
+ <h2>10. SSL- bzw. TLS-Verschlüsselung</h2>
+<p>
+  Diese Website wird über GitHub Pages bereitgestellt und nutzt
+  eine SSL- bzw. TLS-Verschlüsselung, um eine sichere Übertragung
+  der Inhalte zwischen dem Browser des Nutzers und dem Server zu gewährleisten.
+</p>
+
+<p>
+  Die Verschlüsselung dient dem Schutz der übertragenen Daten
+  vor dem Zugriff durch unbefugte Dritte.
+</p>
 
   <h2>11. Änderungen dieser Datenschutzerklärung</h2>
   <p>
@@ -1467,10 +1473,16 @@ datenschutzBtn.addEventListener("click", () => {
   </p>
 
   <h2>10. SSL / TLS шифрование</h2>
-  <p>
-    Этот сайт размещён на GitHub Pages и автоматически использует
-    SSL/TLS шифрование для безопасной передачи данных.
-  </p>
+<p>
+  Данный сайт размещён на платформе GitHub Pages и использует
+  SSL/TLS шифрование для обеспечения безопасной передачи данных
+  между браузером пользователя и сервером.
+</p>
+
+<p>
+  SSL/TLS шифрование позволяет защитить передаваемые данные
+  от несанкционированного доступа третьих лиц.
+</p>
 
   <h2>11. Изменения политики конфиденциальности</h2>
   <p>
