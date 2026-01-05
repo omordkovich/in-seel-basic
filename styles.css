@@ -88,7 +88,7 @@ a {
 .tour-card {
   display: flex;
   flex-direction: column;
-  align-items: start;
+  align-items: center;
   background-color: white;
   overflow: hidden;
   border-radius: 4px;
@@ -96,6 +96,13 @@ a {
   max-width: 256px;
   height: 600px;
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+.thank-you-message {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
 }
 
 .tour-day,
@@ -106,7 +113,6 @@ a {
 .form-contrainer {
   display: none;
   background-color: white;
-  flex-direction: column;
   padding: 50px;
   overflow: hidden;
   border-radius: 4px;
@@ -158,7 +164,8 @@ a {
 
 #social-links {
   display: flex;
-  margin-top: 30px;
+  margin-top: auto;
+
   flex-direction: row;
   width: 100%;
   max-height: fit-content;
@@ -242,6 +249,10 @@ a {
 }
 
 .description {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Block bleibt mittig */
+  text-align: center; /* Text innerhalb wird mittig umbrochen */
   line-height: 1.4em;
   max-height: calc(1.4em * 6);
   margin-top: 10px;
@@ -249,7 +260,6 @@ a {
   padding: 0 15px;
   white-space: normal;
 }
-
 .price {
   font-size: 20px;
   font-weight: bold;
@@ -288,6 +298,12 @@ a {
   font-size: 18px;
 }
 
+.back-button-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+}
 /* .user-input-container {
   padding: 0.85rem 1rem;
   font-size: 0.95rem;
@@ -403,6 +419,7 @@ a {
   padding: 20px;
   font-size: 10px;
   color: #ffffff;
+  flex-shrink: 0;
 }
 
 .sun-spinner {
