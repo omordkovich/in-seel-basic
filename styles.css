@@ -53,8 +53,10 @@ a {
   justify-content: center;
   align-items: center;
   background-color: #216796;
-  height: 120px;
+  height: fit-content;
   z-index: 10;
+  padding: 10px 0;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
 }
 .header-info {
   display: flex;
@@ -66,6 +68,10 @@ a {
   font-size: 12px;
 }
 
+.news-line {
+  text-align: center;
+  margin: 0 20px;
+}
 .info-container {
   display: flex;
   flex-direction: column;
