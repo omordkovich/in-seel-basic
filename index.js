@@ -1603,6 +1603,8 @@ document.addEventListener("DOMContentLoaded", () => {
     const formData = new FormData();
     formData.append("fname", document.getElementById("fname").value);
     formData.append("lname", document.getElementById("lname").value);
+    formData.append("agency", document.getElementById("agency").value);
+
     formData.append("email", document.getElementById("email").value);
     formData.append("phone", document.getElementById("phone").value);
     formData.append(
@@ -1660,6 +1662,7 @@ document.addEventListener("DOMContentLoaded", () => {
         <h2>✅ Спасибо!</h2>
         <p>Ваша заявка успешно отправлена.</p>
         <p>Наши специалисты свяжутся с вами в ближайшее время.</p>
+      
         <button id="backToCatalog" class="order-btn">Вернуться к турам</button>
       `;
       formContainer.appendChild(thankYouMsg);

@@ -49,11 +49,21 @@ a {
   left: 0;
   width: 100vw;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   background-color: #216796;
   height: 120px;
   z-index: 10;
+}
+.header-info {
+  display: flex;
+  width: 100%;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  flex-direction: row;
+  color: white;
+  font-size: 12px;
 }
 
 .info-container {
