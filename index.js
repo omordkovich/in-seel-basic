@@ -446,7 +446,14 @@ function renderTourIncluded(tour) {
     </ul>
   `;
 }
-
+//Render Description
+function renderTourDescription(tour) {
+  if (tour.description.length === 0) {
+    return "";
+  } else {
+    return `<div>${tour.description}</div>`;
+  }
+}
 //Render Excluded
 function renderTourExcluded(tour) {
   if (!Array.isArray(tour.excluded) || tour.excluded.length === 0) return "";
@@ -468,7 +475,7 @@ function openTourDetails(tour) {
 
   tourId = tour.id;
   tourTitle.textContent = tour.title;
-  tourDescription.textContent = tour.description;
+  tourDescription.innerHTML = renderTourDescription(tour);
   tourDays.innerHTML = renderDaysDescription(tour);
   tourIncluded.innerHTML = renderTourIncluded(tour);
   tourExcluded.innerHTML = renderTourExcluded(tour);
