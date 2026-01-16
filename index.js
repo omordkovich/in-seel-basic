@@ -33,6 +33,8 @@ const datenschutzBtn = document.getElementById("datenschutz-btn");
 const impressumBtn = document.getElementById("impressum-btn");
 const agbBtn = document.getElementById("agb-btn");
 const wiederrufBtn = document.getElementById("wiederruf-btn");
+const hideBtn = document.querySelector("#hide-btn");
+
 const datenschutzVermittlerBtn = document.getElementById(
   "datenschutz-vermittler-btn"
 );
@@ -697,9 +699,15 @@ numChildrenSelect.addEventListener("change", () => {
   renderBirthdateFields(parseInt(numChildrenSelect.value, 10));
 });
 
+hideBtn.addEventListener("click", () => {
+  infoTextContainer.innerHTML = "";
+  hideBtn.style.display = "none";
+});
+
 //render Datenschutzhinweise für nebenberufliche Vermittler
 
 datenschutzVermittlerBtn.addEventListener("click", () => {
+  hideBtn.style.display = "block";
   infoTextContainer.innerHTML = `<section id="datenschutz-vermittler">
   <h1>Datenschutzhinweise für nebenberufliche Vermittler</h1>
   <p><strong>Informationsblatt zur Datenverarbeitung (§ 34d Abs. 8 GewO)</strong><br>Stand: 2026</p>
@@ -883,6 +891,8 @@ datenschutzVermittlerBtn.addEventListener("click", () => {
 
 //render Widerrufsbelehrung
 wiederrufBtn.addEventListener("click", () => {
+  hideBtn.style.display = "block";
+
   infoTextContainer.innerHTML = `<section id="widerruf">
   <h1>Widerrufsbelehrung</h1>
 
@@ -957,6 +967,8 @@ wiederrufBtn.addEventListener("click", () => {
 });
 //render AGB
 agbBtn.addEventListener("click", () => {
+  hideBtn.style.display = "block";
+
   infoTextContainer.innerHTML = `<section id="agb">
   <h1>Allgemeine Geschäftsbedingungen (AGB)</h1>
 
@@ -1130,6 +1142,7 @@ agbBtn.addEventListener("click", () => {
 
 //render Impressum
 impressumBtn.addEventListener("click", () => {
+  hideBtn.style.display = "block";
   infoTextContainer.innerHTML = `<section id="impressum">
   <h1>Impressum</h1>
 
@@ -1204,6 +1217,7 @@ impressumBtn.addEventListener("click", () => {
 });
 //render Datenschutzerklärung
 datenschutzBtn.addEventListener("click", () => {
+  hideBtn.style.display = "block";
   infoTextContainer.innerHTML = `
     <section id="datenschutz">
       <h1>Datenschutzerklärung</h1>

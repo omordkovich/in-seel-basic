@@ -126,6 +126,10 @@ a {
   text-align: start;
 }
 
+#hide-btn {
+  display: none;
+}
+
 .form-contrainer {
   display: none;
   background-color: white;
