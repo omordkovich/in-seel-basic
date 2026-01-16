@@ -19,6 +19,7 @@ const busStops = document.getElementById("busStops");
 const daysCounter = document.getElementById("daysCounter");
 const additionalInfo = document.getElementById("additionalInfo");
 const importantInfo = document.getElementById("importantInfo");
+const tourPrices = document.getElementById("tourPrices");
 const tourDates = document.getElementById("tourDates");
 const tourImage = document.getElementById("tourImage");
 const today = new Date().toISOString().split("T")[0];
@@ -352,6 +353,12 @@ function renderImportantInfo(tour) {
 `;
 }
 
+//Render Preise
+function renderPrices(tour) {
+  return `</br>Цена: ${
+    tour.startPrice ? tour.startPrice.map((price) => price).join(" | ") : ""
+  }`;
+}
 //Render Days Counter
 function renderDaysCounter(tour) {
   return `
@@ -484,7 +491,7 @@ function openTourDetails(tour) {
   daysCounter.innerHTML = renderDaysCounter(tour);
   additionalInfo.innerHTML = renderAdditionalInfo(tour);
   importantInfo.innerHTML = renderImportantInfo(tour);
-
+  tourPrices.innerHTML = renderPrices(tour);
   catalog.style.display = "none";
   contactForm.style.display = "flex";
 

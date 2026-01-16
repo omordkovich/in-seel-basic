@@ -110,7 +110,7 @@ a {
   border-radius: 4px;
   min-width: 100px;
   max-width: 256px;
-  height: 600px;
+  height: 500px;
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
 }
 
@@ -413,7 +413,7 @@ a {
   align-self: center;
   padding: 15px;
   line-height: 1.4em;
-  max-height: calc(1.4em * 6);
+  max-height: calc(1.4em * 3);
   margin-top: 10px;
   overflow: hidden;
   padding: 0 15px;
