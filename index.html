@@ -15,9 +15,29 @@
         <a href="./index.html"
           ><img src="./assets/insel_logo.webp" class="logo" alt="logo"
         /></a>
+        <div class="header-info">
+          <section id="social-links">
+            <a href="https://instagram.com/inseeltours">
+              <img src="assets\logo_insta.webp" alt="logo-instagram" />
+            </a>
+
+            <a href="https://www.youtube.com/@inseeltours">
+              <img src="assets\logo_youtube.webp" alt="logo-youtube" />
+            </a>
+          </section>
+          <div>
+            <p>Sebastianstr. 97, DE-50735 Köln</p>
+            <p>Тел.: +49(0)221 77898 701/702</p>
+          </div>
+        </div>
       </header>
       <main class="main">
         <div class="catalog-container">
+          <div class="news-line">
+            САНАТОРИИ И КУРОРТЫ! Большой выбор санаториев и курортов на любой
+            вкус!
+          </div>
+          <br />
           <div class="selectors-container">
             <div class="user-input-container">
               <label for="tour-type">Тип тура</label>
@@ -28,12 +48,23 @@
               </select>
             </div>
             <div class="user-input-container">
-              <label for="user-price">Страны</label>
-              <select name="price" id="user-price" class="user-select-input">
+              <label for="tour-country">Страны</label>
+              <select name="price" id="tour-country" class="user-select-input">
                 <option value="all">Все страны</option>
-                <option value="Frankreich">Франция</option>
-                <option value="Italien">Италия</option>
-                <option value="Belgien">Бельгия</option>
+                <option value="Франция">Франция</option>
+                <option value="Италия">Италия</option>
+                <option value="Бельгия">Бельгия</option>
+                <option value="Чехия">Чехия</option>
+                <option value="Голландия">Голландия</option>
+                <option value="Монако">Монако</option>
+                <option value="Люксембург">Люксембург</option>
+                <option value="Германия">Германия</option>
+                <option value="Швейцария">Швейцария</option>
+                <option value="Испания">Испания</option>
+                <option value="Австрия">Австрия</option>
+                <option value="Дания">Дания</option>
+                <option value="Швеция">Швеция</option>
+                <option value="Норвегия">Норвегия</option>
               </select>
             </div>
             <div class="user-input-container">
@@ -118,7 +149,7 @@
               </select>
             </div>
 
-            <button class="search-button">🔍 Найти</button>
+            <button class="search-button">Найти</button>
           </div>
 
           <div id="spinner" class="sun-spinner">
@@ -141,120 +172,184 @@
         </div>
 
         <div class="form-contrainer">
-          <form>
-            <h2 id="tourTitle"></h2>
-            <p id="tourDescription"></p>
-            <img
-              id="tourImage"
-              class="tour-img-description"
-              src=""
-              alt="Tour Image"
-            />
+          <form class="form-elements">
+            <div class="back-button-container">
+              <a href="./index.html" class="order-btn">Назад</a>
+            </div>
+            <h1 id="tourTitle"></h1>
+            <div class="tour-info">
+              <div>
+                <img
+                  id="tourImage"
+                  class="tour-img-description"
+                  src=""
+                  alt="Tour Image"
+                />
+                <br />
+                <br />
+                <p id="tourDescription"></p>
+                <br />
+                <h1>Программа тура:</h1>
+                <div id="tourDays"></div>
+                <div id="daysCounter"></div>
+                <div id="tourIncluded"></div>
+                <div id="tourExcluded"></div>
+                <br />
+                <h1>Даты:</h1>
+                <div id="tourDates" class="tour-dates-list"></div>
+                <br />
+                <h1>Города и время отправления:</h1>
+                <div id="busStops" class="tour-day"></div>
+                <div id="additionalInfo"></div>
+                <div class="price" id="tourPrices"></div>
+                <div id="importantInfo"></div>
+              </div>
+            </div>
+            <h1>Информация о заказчике</h1>
+            <div>
+              <label for="fname">Имя*: </label>
+              <input
+                type="text"
+                id="fname"
+                name="fname"
+                placeholder="Введите имя"
+                required
+              />
+            </div>
+            <div>
+              <label for="lname">Фамилия*:</label>
+              <input
+                type="text"
+                id="lname"
+                name="lname"
+                placeholder="Введите фамилию"
+                required
+              />
+            </div>
+            <div>
+              <label for="agency">Агентство (опционально):</label>
+              <input
+                type="text"
+                id="agency"
+                name="agency"
+                placeholder="Введите название агентства"
+              />
+            </div>
+            <h1>Адрес прописки:</h1>
 
-            <br /><br />
-
-            <label for="fname">Имя*:</label><br />
-            <input
-              type="text"
-              id="fname"
-              name="fname"
-              placeholder="Введите имя"
-            /><br /><br />
-
-            <label for="lname">Фамилия*:</label><br />
-            <input
-              type="text"
-              id="lname"
-              name="lname"
-              placeholder="Введите фамилию"
-              required
-            /><br /><br />
-            <div class="adress-container">
-              <p>Адрес прописки:</p>
-              <label for="addressStreet">Улица, номер дома (латиницой)*:</label
-              ><br />
+            <div>
+              <label for="addressStreet"
+                >Улица, номер дома (латиницей)*:
+              </label>
               <input
                 type="text"
                 id="addressStreet"
                 name="addressStreet"
                 placeholder="Alexanderplatz 1"
                 required
-              /><br /><br />
-              <label for="addressCity">Инлекс, город (латиницой)*:</label><br />
+              />
+            </div>
+
+            <div>
+              <label for="addressCity">Индекс, город (латиницей)*: </label>
               <input
                 type="text"
                 id="addressCity"
                 name="addressCity"
                 placeholder="DE-10178 Berlin"
                 required
-              /><br /><br />
+              />
             </div>
-            <label for="numTourists">Количество туистов (от 18 лет):</label
-            ><br />
-            <input
-              type="number"
-              id="numTourists"
-              name="numTourists"
-              min="1"
-              value="1"
-              required
-            /><br /><br />
-            <label for="numChildren"
-              >Количество несовершеннолетних (до 18 лет):</label
-            ><br />
-            <input
-              type="number"
-              id="numChildren"
-              name="numChildren"
-              min="0"
-              value="0"
-              required
-            />
-            <br /><br />
-            <div id="birthdatesContainer"></div>
+
+            <div>
+              <label for="email">Email*:</label>
+              <input
+                type="email"
+                id="email"
+                name="email"
+                placeholder="yourname@email.com"
+                required
+              />
+            </div>
+
+            <div>
+              <label for="phone">Телефон*:</label>
+              <input
+                type="tel"
+                id="phone"
+                name="phone"
+                placeholder="+49221 778 98 702 "
+                required
+              />
+            </div>
+
+            <div>
+              <label for="numTourists">Количество туистов (от 18 лет):</label>
+              <input
+                type="number"
+                id="numTourists"
+                name="numTourists"
+                min="1"
+                value="1"
+                required
+              />
+            </div>
+
+            <div class="input-row">
+              <label for="numChildren"
+                >Количество несовершеннолетних (до 18 лет):</label
+              >
+              <input
+                type="number"
+                id="numChildren"
+                name="numChildren"
+                min="0"
+                max="10"
+                value="0"
+                required
+              />
+            </div>
+            <div id="birthdatesContainer" class="birthdates-container"></div>
             <div id="startCityContainer"></div>
             <div id="startDateContainer"></div>
             <div id="hotelContainer"></div>
-            <br /><br />
-            <label for="email">Email*:</label><br />
-            <input
-              type="email"
-              id="email"
-              name="email"
-              placeholder="yourname@email.com"
-              required
-            /><br /><br />
+            <div class="input-row">
+              <p>
+                Я ознакомился(лась) с политикой конфиденциальности и даю
+                согласие*:
+              </p>
+              <input type="checkbox" required />
+            </div>
+            <div>
+              <label for="phone">Коментарий:</label>
+              <input type="text" id="comments" name="comments" />
+            </div>
 
-            <label for="phone">Телефон*:</label><br />
-            <input
-              type="tel"
-              id="phone"
-              name="phone"
-              placeholder="+49221 778 98 702 "
-              required
-            /><br /><br />
-            <label for="phone">Коментарий:</label><br />
-
-            <input type="text" id="comments" name="comments" /><br /><br />
-            <div
-              class="g-recaptcha"
-              data-sitekey="6Lc4LREsAAAAAOK2boH6FT4NTqkesb27-zg4pfCj"
-            ></div>
-            <script
-              src="https://www.google.com/recaptcha/api.js"
-              async
-              defer
-            ></script>
-
-            <button type="submit">Отправить контактный формуляр</button
-            ><br /><br />
+            <button type="submit" class="order-btn">
+              Отправить контактный формуляр
+            </button>
           </form>
         </div>
       </main>
       <footer class="footer">
-        <p>DE-50735 Köln, Sebastianstraße 97</p>
-        <a href="mailto:info@in-seel.de">info@in-seel.de</a>
-        <p>tel: +49221 778 98 702</p>
+        <div class="info-container">
+          <div class="footer-btns-container">
+            <button class="btn-footer" id="hide-btn">Свернуть</button>
+            <button class="btn-footer" id="datenschutz-btn">
+              Datenschutzerklärung
+            </button>
+            <button class="btn-footer" id="datenschutz-vermittler-btn">
+              Datenschutzhinweise für nebenberufliche Vermittler
+            </button>
+            <button class="btn-footer" id="impressum-btn">Impressum</button>
+            <button class="btn-footer" id="agb-btn">AGB</button>
+            <button class="btn-footer" id="wiederruf-btn">
+              Widerrufsbelehrung
+            </button>
+          </div>
+          <br />
+          <div id="info-text-container"></div>
+        </div>
       </footer>
     </div>
   </body>
