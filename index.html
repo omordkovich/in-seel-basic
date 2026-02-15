@@ -1,6 +1,6 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
-  <head lang="ru">
+  <head lang="de">
     <title>IN-SEEL</title>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/png" href="./assets/favicon.webp" />
@@ -34,41 +34,41 @@
       <main class="main">
         <div class="catalog-container">
           <div class="news-line">
-            САНАТОРИИ И КУРОРТЫ! Большой выбор санаториев и курортов на любой
-            вкус!
+            SANATORIEN UND KURORTE! Große Auswahl an Sanatorien und Kurorten für
+            jeden Geschmack!
           </div>
           <br />
           <div class="selectors-container">
             <div class="user-input-container">
-              <label for="tour-type">Тип тура</label>
+              <label for="tour-type">Tourtyp</label>
               <select name="type" id="tour-type" class="user-select-input">
-                <option value="all">Все типы</option>
-                <option value="oneday">Однодневные</option>
-                <option value="multipledays">Многодневные</option>
+                <option value="all">Alle Typen</option>
+                <option value="oneday">Tagesausflüge</option>
+                <option value="multipledays">Mehrtägige Touren</option>
               </select>
             </div>
             <div class="user-input-container">
-              <label for="tour-country">Страны</label>
+              <label for="tour-country">Länder</label>
               <select name="price" id="tour-country" class="user-select-input">
-                <option value="all">Все страны</option>
-                <option value="Франция">Франция</option>
-                <option value="Италия">Италия</option>
-                <option value="Бельгия">Бельгия</option>
-                <option value="Чехия">Чехия</option>
-                <option value="Голландия">Голландия</option>
-                <option value="Монако">Монако</option>
-                <option value="Люксембург">Люксембург</option>
-                <option value="Германия">Германия</option>
-                <option value="Швейцария">Швейцария</option>
-                <option value="Испания">Испания</option>
-                <option value="Австрия">Австрия</option>
-                <option value="Дания">Дания</option>
-                <option value="Швеция">Швеция</option>
-                <option value="Норвегия">Норвегия</option>
+                <option value="all">Alle Länder</option>
+                <option value="Frankreich">Frankreich</option>
+                <option value="Italien">Italien</option>
+                <option value="Belgien">Belgien</option>
+                <option value="Tschechien">Tschechien</option>
+                <option value="Niederlande">Niederlande</option>
+                <option value="Monaco">Monaco</option>
+                <option value="Luxemburg">Luxemburg</option>
+                <option value="Deutschland">Deutschland</option>
+                <option value="Schweiz">Schweiz</option>
+                <option value="Spanien">Spanien</option>
+                <option value="Österreich">Österreich</option>
+                <option value="Dänemark">Dänemark</option>
+                <option value="Schweden">Schweden</option>
+                <option value="Norwegen">Norwegen</option>
               </select>
             </div>
             <div class="user-input-container">
-              <label for="date-from">Дата от:</label>
+              <label for="date-from">von:</label>
               <input
                 type="date"
                 id="date-from"
@@ -77,22 +77,20 @@
               />
             </div>
             <div class="user-input-container">
-              <label for="date-to">Дата до:</label>
+              <label for="date-to">bis:</label>
               <input
                 type="date"
                 id="date-to"
                 name="date-to"
                 class="date-input"
-                placeholder="дд.мм.гггг"
-                onfocus="this.type='date'"
-                onblur="if(!this.value)this.type='text'"
+                placeholder="tt.mm.yyyy"
               />
             </div>
 
             <div class="user-input-container">
-              <label for="startCity">Отправление из</label>
+              <label for="startCity">Abfahrtsort</label>
               <select name="type" id="startCity" class="user-select-input">
-                <option value="all">Все</option>
+                <option value="all">Alle</option>
                 <option>A3, Autohof Mogendorf</option>
                 <option>A5, Ausfahrt 55 Offenburg</option>
                 <option>A5, Ausfahrt 56 Lahr/Schwarzwald</option>
@@ -149,7 +147,7 @@
               </select>
             </div>
 
-            <button class="search-button">Найти</button>
+            <button class="search-button">Suchen</button>
           </div>
 
           <div id="spinner" class="sun-spinner">
@@ -174,7 +172,7 @@
         <div class="form-contrainer">
           <form class="form-elements">
             <div class="back-button-container">
-              <a href="./index.html" class="order-btn">Назад</a>
+              <a href="./index.html" class="order-btn">Zurück</a>
             </div>
             <h1 id="tourTitle"></h1>
             <div class="tour-info">
@@ -186,61 +184,57 @@
                   alt="Tour Image"
                 />
                 <br />
-                <br />
                 <p id="tourDescription"></p>
-                <br />
-                <h1>Программа тура:</h1>
+
                 <div id="tourDays"></div>
                 <div id="daysCounter"></div>
                 <div id="tourIncluded"></div>
                 <div id="tourExcluded"></div>
                 <br />
-                <h1>Даты:</h1>
+                <h1>Abfahrtsdatum:</h1>
                 <div id="tourDates" class="tour-dates-list"></div>
                 <br />
-                <h1>Города и время отправления:</h1>
+                <h1>Orte und Abfahrtszeiten:</h1>
                 <div id="busStops" class="tour-day"></div>
                 <div id="additionalInfo"></div>
                 <div class="price" id="tourPrices"></div>
                 <div id="importantInfo"></div>
               </div>
             </div>
-            <h1>Информация о заказчике</h1>
+            <h1>Informationen zum Auftraggeber</h1>
             <div>
-              <label for="fname">Имя*: </label>
+              <label for="fname">Vorname*: </label>
               <input
                 type="text"
                 id="fname"
                 name="fname"
-                placeholder="Введите имя"
+                placeholder="Ihr Vorname"
                 required
               />
             </div>
             <div>
-              <label for="lname">Фамилия*:</label>
+              <label for="lname">Name*:</label>
               <input
                 type="text"
                 id="lname"
                 name="lname"
-                placeholder="Введите фамилию"
+                placeholder="Ihr Name"
                 required
               />
             </div>
             <div>
-              <label for="agency">Агентство (опционально):</label>
+              <label for="agency">Agentur (optional):</label>
               <input
                 type="text"
                 id="agency"
                 name="agency"
-                placeholder="Введите название агентства"
+                placeholder="Geben Sie den Namen der Agentur ein"
               />
             </div>
-            <h1>Адрес прописки:</h1>
+            <h1>Adresse:</h1>
 
             <div>
-              <label for="addressStreet"
-                >Улица, номер дома (латиницей)*:
-              </label>
+              <label for="addressStreet">Straße, Hausnummer*: </label>
               <input
                 type="text"
                 id="addressStreet"
@@ -251,7 +245,7 @@
             </div>
 
             <div>
-              <label for="addressCity">Индекс, город (латиницей)*: </label>
+              <label for="addressCity">PLZ, Wohnort*: </label>
               <input
                 type="text"
                 id="addressCity"
@@ -273,7 +267,7 @@
             </div>
 
             <div>
-              <label for="phone">Телефон*:</label>
+              <label for="phone">Telefon*:</label>
               <input
                 type="tel"
                 id="phone"
@@ -284,7 +278,9 @@
             </div>
 
             <div>
-              <label for="numTourists">Количество туистов (от 18 лет):</label>
+              <label for="numTourists"
+                >Anzahl der Touristen (ab 18 Jahren):</label
+              >
               <input
                 type="number"
                 id="numTourists"
@@ -297,7 +293,7 @@
 
             <div class="input-row">
               <label for="numChildren"
-                >Количество несовершеннолетних (до 18 лет):</label
+                >Anzahl der Minderjährigen (unter 18 Jahren):</label
               >
               <input
                 type="number"
@@ -315,18 +311,17 @@
             <div id="hotelContainer"></div>
             <div class="input-row">
               <p>
-                Я ознакомился(лась) с политикой конфиденциальности и даю
-                согласие*:
+                Ich habe die Datenschutzbestimmungen gelesen und stimme zu*:
               </p>
               <input type="checkbox" required />
             </div>
             <div>
-              <label for="phone">Коментарий:</label>
+              <label for="phone">Kommentar:</label>
               <input type="text" id="comments" name="comments" />
             </div>
 
             <button type="submit" class="order-btn">
-              Отправить контактный формуляр
+              Kontaktformular absenden
             </button>
           </form>
         </div>
@@ -334,7 +329,7 @@
       <footer class="footer">
         <div class="info-container">
           <div class="footer-btns-container">
-            <button class="btn-footer" id="hide-btn">Свернуть</button>
+            <button class="btn-footer" id="hide-btn">Einklappen</button>
             <button class="btn-footer" id="datenschutz-btn">
               Datenschutzerklärung
             </button>

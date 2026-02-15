@@ -6,7 +6,7 @@ const catalog = document.querySelector(".catalog-container");
 const searchButton = document.querySelector(".search-button");
 const tourTypeSelect = document.querySelector("#tour-type");
 const countrySelect = document.querySelector("#tour-country");
-numChildrenSelect = document.getElementById("numChildren");
+const numChildrenSelect = document.getElementById("numChildren");
 const birthdatesContainer = document.getElementById("birthdatesContainer");
 const startDateContainer = document.getElementById("startDateContainer");
 const hotelContainer = document.getElementById("hotelContainer");
@@ -34,9 +34,8 @@ const impressumBtn = document.getElementById("impressum-btn");
 const agbBtn = document.getElementById("agb-btn");
 const wiederrufBtn = document.getElementById("wiederruf-btn");
 const hideBtn = document.querySelector("#hide-btn");
-
 const datenschutzVermittlerBtn = document.getElementById(
-  "datenschutz-vermittler-btn"
+  "datenschutz-vermittler-btn",
 );
 
 dateFromInput.value = today;
@@ -59,15 +58,13 @@ if (startCityDropdown) {
   });
 }
 
-// Datum validieren
+// Datum from/to validieren
 dateFromInput.addEventListener("change", () => {
   const fromDate = new Date(dateFromInput.value);
   const toDate = new Date(dateToInput.value);
-
   if (fromDate > toDate) dateToInput.value = dateFromInput.value;
   dateToInput.min = dateFromInput.value;
 });
-
 dateToInput.addEventListener("change", () => {
   const fromDate = new Date(dateFromInput.value);
   const toDate = new Date(dateToInput.value);
@@ -87,7 +84,7 @@ function renderCityDropdown(startCities) {
   startCityContainer.innerHTML = "";
 
   const label = document.createElement("label");
-  label.textContent = "Город отправления*: ";
+  label.textContent = "Abfahrtsort*: ";
   label.htmlFor = "start-city-select";
 
   const select = document.createElement("select");
@@ -97,7 +94,7 @@ function renderCityDropdown(startCities) {
 
   const defaultOption = document.createElement("option");
   defaultOption.value = "";
-  defaultOption.textContent = "Выберите место отправления:";
+  defaultOption.textContent = "Wählen Sie den Abfahrtsort:";
   select.appendChild(defaultOption);
 
   startCities.forEach((city) => {
@@ -117,7 +114,7 @@ function renderCityDropdown(startCities) {
   startCityContainer.appendChild(select);
 }
 
-// Load CSV laden
+// Load CSV
 const sheetUrl =
   "https://docs.google.com/spreadsheets/d/e/2PACX-1vRNfC967UzQ8Lu5SN7rrpETre-ILwsnKZ4K6bbmMz_fHvEyrLyFQy-5ixxn278r6FLo_fHdXVvqZBIH/pub?gid=0&single=true&output=csv";
 
@@ -328,7 +325,7 @@ function renderBusSchedule(tour) {
     <ul class="bus-schedule">
       ${tour.busSchedule
         .map(
-          (stop) => `<li><strong>${stop.time}</strong> - ${stop.address}</li>`
+          (stop) => `<li><strong>${stop.time}</strong> - ${stop.address}</li>`,
         )
         .join("")}
     </ul>
@@ -339,8 +336,9 @@ function renderBusSchedule(tour) {
 function renderAdditionalInfo(tour) {
   if (!tour.additionalInfo || tour.additionalInfo.length.trim === "") return "";
   return `
-</br>
-<h1>Дополнительная информация: </h1>
+<br />
+<h1>Zusätzliche Informationen: </h1>
+
 <p style="text-align: start">${tour.additionalInfo} </p>
 `;
 }
@@ -350,14 +348,14 @@ function renderImportantInfo(tour) {
   if (!tour.importantInfo || tour.importantInfo.trim() === "") return "";
   return `
 <br>
-<h1>ВАЖНО!: </h1>
+<h1>WICHTIG!: </h1>
 <p style="text-align: start">${tour.importantInfo}</p>
 `;
 }
 
 //Render Preise
 function renderPrices(tour) {
-  return `</br>Цена: ${
+  return `<br>Preis: ${
     tour.startPrice ? tour.startPrice.map((price) => price).join(" | ") : ""
   }`;
 }
@@ -366,27 +364,11 @@ function renderDaysCounter(tour) {
   return `
   <br>
   <p>
-    ${tour.durationDays} ${
-    tour.durationDays == 1
-      ? "день"
-      : tour.durationDays >= 2 && tour.durationDays <= 4
-      ? "дня"
-      : "дней"
-  }; 
-    ${tour.durationNights} ${
-    tour.durationNights == 1
-      ? "ночь"
-      : tour.durationNights >= 2 && tour.durationNights <= 4
-      ? "ночи"
-      : "ночей"
-  }; 
+    ${tour.durationDays} ${tour.durationDays == 1 ? "Tag" : "Tage"}; 
+    ${tour.durationNights} ${tour.durationNights == 1 ? "Nacht" : "Nächte"}; 
     ${tour.accommodationNights} ${
-    tour.accommodationNights == 1
-      ? "ночь"
-      : tour.accommodationNights >= 2 && tour.accommodationNights <= 4
-      ? "ночи"
-      : "ночей"
-  } в отеле
+      tour.accommodationNights == 1 ? "Nacht" : "Nächte"
+    } im Hotel
   </p>
   `;
 }
@@ -394,14 +376,14 @@ function renderDaysCounter(tour) {
 //Tagesplan Rendern
 function renderDaysDescription(tour) {
   const dayMap = [
-    { key: "firstDayDescription", label: "Первый день" },
-    { key: "secondDayDescription", label: "Второй день" },
-    { key: "thirdDayDescription", label: "Третий день" },
-    { key: "fourthDayDescription", label: "Четвертый день" },
-    { key: "fifthDayDescription", label: "Пятый день" },
-    { key: "sixthDayDescription", label: "Шестой день" },
-    { key: "seventhDayDescription", label: "Седьмой день" },
-    { key: "eighthDayDescription", label: "Восьмой день" },
+    { key: "firstDayDescription", label: "Erster Tag" },
+    { key: "secondDayDescription", label: "Zweiter Tag" },
+    { key: "thirdDayDescription", label: "Dritter Tag" },
+    { key: "fourthDayDescription", label: "Vierter Tag" },
+    { key: "fifthDayDescription", label: "Fünfter Tag" },
+    { key: "sixthDayDescription", label: "Sechster Tag" },
+    { key: "seventhDayDescription", label: "Siebter Tag" },
+    { key: "eighthDayDescription", label: "Achter Tag" },
   ];
 
   return dayMap
@@ -435,7 +417,7 @@ function renderTourDates(tour) {
         const endMonth = String(end.getMonth() + 1).padStart(2, "0");
         const endYear = end.getFullYear();
 
-        return `<p>с ${startDay}.${startMonth}.${startYear} по ${endDay}.${endMonth}.${endYear}</p>`;
+        return `<p>von ${startDay}.${startMonth}.${startYear} bis ${endDay}.${endMonth}.${endYear}</p>`;
       }
 
       // Eintägige Tour
@@ -449,12 +431,13 @@ function renderTourIncluded(tour) {
   if (!Array.isArray(tour.included) || tour.included.length === 0) return "";
   return `
     <br />
-    <h1 style="text-align: center">Для ВАС:</h1>
+    <h1 style="text-align: center">Für Sie:</h1>
      <ul">
       ${tour.included.map((item) => `<li class="check"> ${item}</li>`).join("")}
     </ul>
   `;
 }
+
 //Render Description
 function renderTourDescription(tour) {
   if (tour.description.length === 0) {
@@ -469,7 +452,7 @@ function renderTourExcluded(tour) {
 
   return `
     <br />  
-    <h1 style="text-align: center">Дополнительно оплачивается:</h1>
+    <h1 style="text-align: center">Zusätzliche Kosten:</h1>
     <ul">
       ${tour.excluded.map((item) => `<li class="ex"> ${item}</li>`).join("")}
     </ul>
@@ -537,10 +520,8 @@ function renderTourCards(tours) {
   ${renderTourDates(tour)}
   
 </div>
-
-           
       <div class="btn-container">
-      <button class="order-btn">Больше дат</button>
+      <button class="order-btn">Mehr</button>
       </div>
     `;
     const previewArea = newTourCard.querySelector(".tour-img");
@@ -563,7 +544,7 @@ function renderHotelFields(durationDays) {
 
   if (durationDays > 1) {
     const label = document.createElement("label");
-    label.textContent = "Размещение в гостинице*:";
+    label.textContent = "Unterbringung im Hotel*:";
     label.htmlFor = "hotel-room-select";
 
     const select = document.createElement("select");
@@ -571,50 +552,43 @@ function renderHotelFields(durationDays) {
     select.name = "hotel-room-select";
     select.required = true;
 
-    // ❗ Ungültige Platzhalter-Option
+    // Ungültige Platzhalter-Option
     const defaultOption = document.createElement("option");
     defaultOption.value = "";
-    defaultOption.textContent = "Выберите тип комнаты в гостинице:";
+    defaultOption.textContent = "Wählen Sie den Zimmertyp:";
     defaultOption.disabled = true;
     defaultOption.selected = true;
     defaultOption.hidden = true;
     select.appendChild(defaultOption);
 
     const roomTypes = [
-      "Одноместный",
-      "Двухместный с одной кроватью",
-      "Двухместный с раздельными кроватями",
-      "Трехместный",
-      "Двухместный + кровать для ребёнка",
+      "Einzelzimmer",
+      "Doppelzimmer mit einem Bett",
+      "Doppelzimmer mit getrennten Betten",
+      "Dreibettzimmer",
+      "Doppelzimmer + Kinderbett",
     ];
-
     roomTypes.forEach((type) => {
       const opt = document.createElement("option");
       opt.value = type;
       opt.textContent = type;
       select.appendChild(opt);
     });
-
     hotelContainer.appendChild(label);
     hotelContainer.appendChild(select);
   }
 }
 
-// Geburtsdaten Felder rendern
-
+// Rendern Birthdays fields
 numChildrenInput.addEventListener("input", () => {
   let count = parseInt(numChildrenInput.value, 10);
-
   if (isNaN(count) || count < 0) {
     count = 0;
   }
-
   if (count > 10) {
     count = 10;
   }
-
   numChildrenInput.value = count;
-
   renderBirthdateFields(count);
 });
 
@@ -635,7 +609,7 @@ function renderBirthdateFields(count) {
       row.className = "input-row";
 
       const label = document.createElement("label");
-      label.textContent = `Дата рождения ребёнка ${i}:`;
+      label.textContent = `Geburtsdatum des Kindes ${i}:`;
       label.htmlFor = `child_birthdate_${i}`;
 
       const input = document.createElement("input");
@@ -652,21 +626,20 @@ function renderBirthdateFields(count) {
   }
 }
 
-// reagiert dynamisch, wenn sich die Kinderanzahl ändert
+// dynamic rendering by count of number of kids
 numChildrenInput.addEventListener("input", () => {
   const count = parseInt(numChildrenInput.value, 10);
   renderBirthdateFields(isNaN(count) ? 0 : Math.max(0, count));
 });
 
-// beim Laden keine Kinderfelder anzeigen
 renderBirthdateFields(0);
 
-// Start Date Felder rendern
+// Start Date fields
 function renderDatesFields(startDates) {
   startDateContainer.innerHTML = "";
 
   const label = document.createElement("label");
-  label.textContent = "Дата отправления*: ";
+  label.textContent = "Abreisedatum*: ";
   label.htmlFor = "start-date-select";
 
   const select = document.createElement("select");
@@ -676,7 +649,7 @@ function renderDatesFields(startDates) {
 
   const defaultOption = document.createElement("option");
   defaultOption.value = "";
-  defaultOption.textContent = "Выберите дату отправления:";
+  defaultOption.textContent = "Wählen Sie das Abreisedatum:";
   select.appendChild(defaultOption);
 
   startDates.forEach((dateObj) => {
@@ -704,8 +677,202 @@ hideBtn.addEventListener("click", () => {
   hideBtn.style.display = "none";
 });
 
-//render Datenschutzhinweise für nebenberufliche Vermittler
+// Filters
+searchButton.addEventListener("click", () => {
+  let filteredTours = [...tours];
 
+  const startCitySelect = document.getElementById("startCity");
+
+  const fromDateValue = dateFromInput.value
+    ? new Date(dateFromInput.value)
+    : null;
+  const toDateValue = dateToInput.value ? new Date(dateToInput.value) : null;
+
+  // Datum-Filter
+  if (fromDateValue && toDateValue) {
+    if (fromDateValue.getTime() === toDateValue.getTime()) {
+      filteredTours = filteredTours.filter((t) =>
+        t.startDates.some((d) => d >= fromDateValue),
+      );
+    } else {
+      filteredTours = filteredTours.filter((t) =>
+        t.startDates.some((d) => d >= fromDateValue && d <= toDateValue),
+      );
+    }
+  } else if (fromDateValue) {
+    filteredTours = filteredTours.filter((t) =>
+      t.startDates.some((d) => d >= fromDateValue),
+    );
+  } else if (toDateValue) {
+    filteredTours = filteredTours.filter((t) =>
+      t.startDates.some((d) => d <= toDateValue),
+    );
+  }
+  // Länder-Filte
+  if (countrySelect && countrySelect.value !== "all") {
+    const selectedCountry = countrySelect.value.trim();
+
+    filteredTours = filteredTours.filter(
+      (tour) =>
+        Array.isArray(tour.countries) &&
+        tour.countries.includes(selectedCountry),
+    );
+  }
+  // Tourtyp-Filter
+  if (tourTypeSelect.value && tourTypeSelect.value !== "all") {
+    filteredTours = filteredTours.filter((tour) => {
+      const starts = Array.isArray(tour.startDates) ? tour.startDates : [];
+      const ends = Array.isArray(tour.endDates) ? tour.endDates : [];
+      let isMulti = false;
+      for (let i = 0; i < Math.max(starts.length, ends.length); i++) {
+        const start = starts[i];
+        const end = ends[i];
+
+        if (start && end && end.getTime() > start.getTime()) {
+          isMulti = true;
+          break;
+        }
+      }
+
+      if (tourTypeSelect.value === "multipledays") return isMulti;
+      if (tourTypeSelect.value === "oneday") return !isMulti;
+
+      return true;
+    });
+  }
+
+  //  Startstadt-Filter
+  if (startCitySelect && startCitySelect.value !== "all") {
+    const selectedCity = startCitySelect.value.trim().toLowerCase();
+
+    filteredTours = filteredTours.filter((t) =>
+      t.startCities.some(
+        (city) =>
+          city
+            .trim()
+            .toLowerCase()
+            .replace(/ä/g, "ae")
+            .replace(/ö/g, "oe")
+            .replace(/ü/g, "ue")
+            .replace(/ß/g, "ss")
+            .replace(/[\s/]/g, "_") === selectedCity,
+      ),
+    );
+  }
+
+  renderTourCards(filteredTours);
+
+  if (filteredTours.length === 0) {
+    tourList.innerHTML = "<p>Keine Übereinstimmungen!</p>";
+  }
+});
+
+// Formular-Submit-Handler
+document.addEventListener("DOMContentLoaded", () => {
+  const form = document.querySelector("form");
+  const formContainer = document.querySelector(".form-contrainer");
+  if (!form) return;
+
+  const submitButton = form.querySelector('button[type="submit"]');
+
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    submitButton.disabled = true;
+    submitButton.textContent = "Wird versendet...";
+
+    const formData = new FormData();
+    formData.append("fname", document.getElementById("fname").value);
+    formData.append("lname", document.getElementById("lname").value);
+    formData.append("agency", document.getElementById("agency").value);
+
+    formData.append("email", document.getElementById("email").value);
+    formData.append("phone", document.getElementById("phone").value);
+    formData.append(
+      "numTourists",
+      document.getElementById("numTourists").value,
+    );
+    formData.append(
+      "numChildren",
+      document.getElementById("numChildren").value,
+    );
+    formData.append(
+      "startDate",
+      document.getElementById("start-date-select")?.value || "",
+    );
+    formData.append(
+      "startCity",
+      document.getElementById("start-city-select")?.value || "",
+    );
+    formData.append("comments", document.getElementById("comments").value);
+    formData.append(
+      "tourTitle",
+      document.getElementById("tourTitle").textContent,
+    );
+    formData.append(
+      "userAddress",
+      `${document.getElementById("addressStreet")?.value || ""} ${
+        document.getElementById("addressCity")?.value || ""
+      }`,
+    );
+    const hotelSelect = document.getElementById("hotel-room-select");
+    formData.append("hotelRoomType", hotelSelect ? hotelSelect.value : "");
+
+    const childInputs = document.querySelectorAll("#birthdatesContainer input");
+    childInputs.forEach((input, index) => {
+      formData.append(`child_birthdate_${index + 1}`, input.value);
+    });
+
+    const scriptURL =
+      "https://script.google.com/macros/s/AKfycbxaF82txqsJY4iqI2EdkNxyQj_UplwiQjNx7J4r08BWp1AB6WK5iEVMnS91Rc0ABNfb/exec";
+
+    try {
+      await fetch(scriptURL, {
+        method: "POST",
+        body: formData,
+        mode: "no-cors",
+      });
+
+      console.log("✅ Anfrage erfolgreich gesendet!");
+
+      form.style.display = "none";
+
+      const thankYouMsg = document.createElement("div");
+      thankYouMsg.className = "thank-you-message";
+      thankYouMsg.innerHTML = `
+        <h2>✅ Danke!</h2>
+        <p>Ihre Anfrage wurde erfolgreich gesendet.</p>
+         <p>Unsere Spezialisten werden sich in Kürze mit Ihnen in Verbindung setzen.</p>
+         <button id="backToCatalog" class="order-btn">Zurück zur Tourübersicht</button>
+      `;
+      formContainer.appendChild(thankYouMsg);
+
+      // Button zum Zurückkehren zum Katalog
+      const backButton = document.getElementById("backToCatalog");
+      backButton.addEventListener("click", () => {
+        document.querySelector(".catalog-container").style.display = "block";
+        formContainer.style.display = "none";
+        form.reset();
+        thankYouMsg.remove();
+        form.style.display = "block";
+        submitButton.disabled = false;
+        submitButton.textContent = "Senden";
+      });
+    } catch (err) {
+      console.error("❌ Verbindungsfehler:", err);
+      const errorMsg = document.createElement("p");
+      errorMsg.style.color = "red";
+      errorMsg.textContent =
+        "❌ Verbindungsfehler! Bitte versuchen Sie es später.";
+      form.appendChild(errorMsg);
+      // Button wieder aktivieren
+      submitButton.disabled = false;
+      submitButton.textContent = "Senden";
+    }
+  });
+});
+
+//render Datenschutzhinweise für nebenberufliche Vermittler
 datenschutzVermittlerBtn.addEventListener("click", () => {
   hideBtn.style.display = "block";
   infoTextContainer.innerHTML = `<section id="datenschutz-vermittler">
@@ -797,94 +964,6 @@ datenschutzVermittlerBtn.addEventListener("click", () => {
   <p>
     Es finden keine automatisierten Einzelfallentscheidungen oder Profiling-Maßnahmen statt.
   </p>
-  <hr><br>
-  <h1>Политика конфиденциальности для внештатных посредников</h1>
-  <p><strong>Информационный лист по обработке данных (§ 34d Abs. 8 GewO)</strong><br>Дата: 2026</p>
-
-  <h2>1. Ответственный и контакт</h2>
-  <p>
-    Ответственный за обработку данных:<br>
-    <strong>Alexander Kaul – IN-SEEL Tourservice</strong><br>
-    Sebastianstr. 97<br>
-    DE-50735 Кёльн<br>
-    Тел.: +49 221 778 98 702<br>
-    E-Mail: <a href="mailto:info@in-seel.de">info@in-seel.de</a><br>
-    Контакт с ответственным по защите данных возможен по тому же адресу или по e-mail.
-  </p>
-
-  <h2>2. Обрабатываемые категории данных</h2>
-  <ul>
-    <li>Персональные данные (имя, фамилия, добавочные данные, номер посредника или агентства)</li>
-    <li>Банковские реквизиты</li>
-    <li>Контактные данные (адрес, телефон, e-mail)</li>
-    <li>Регистрация в IHK / номер реестра посредников</li>
-    <li>Идентификационный номер налогоплательщика</li>
-    <li>Данные о продажах / комиссиях</li>
-  </ul>
-  <p>При необходимости также обрабатываются данные суб-посредников или сотрудников.</p>
-
-  <h2>3. Цель и правовая основа обработки</h2>
-  <p>
-    Данные обрабатываются для выполнения договора, расчёта комиссий,
-    образовательных целей, статистики и управления продажами,
-    а также для предоставления цифровых ресурсов.
-    Правовая основа: Art. 6 Abs. 1 a) или b) DSGVO. Согласие может быть отозвано в любое время.
-  </p>
-
-  <h2>4. Получатели данных</h2>
-  <p>
-    Данные передаются только тем лицам или подрядчикам, которым они
-    необходимы для выполнения законных или договорных обязанностей:
-  </p>
-  <ul>
-    <li>Банковские партнёры (SEPA)</li>
-    <li>Партнёры и поставщики продукции</li>
-    <li>BaFin (отчётность, Solvency II)</li>
-    <li>Суды или органы власти</li>
-    <li>Должники при взыскании</li>
-    <li>Конкурсные управляющие</li>
-  </ul>
-
-  <h2>5. Срок хранения</h2>
-  <p>
-    Данные удаляются, когда они больше не нужны, и хранятся
-    в рамках законных сроков (до 10 лет, при судебных решениях – до 30 лет).
-  </p>
-
-  <h2>6. Права субъекта данных</h2>
-  <ul>
-    <li>Получение информации о своих данных</li>
-    <li>Исправление неверных данных</li>
-    <li>Удаление данных</li>
-    <li>Ограничение обработки</li>
-    <li>Возражение против обработки</li>
-    <li>Получение данных в машиночитаемом формате</li>
-  </ul>
-
-  <h2>7. Контактный орган по защите данных</h2>
-  <p>
-    Landesbeauftragte für Datenschutz und Informationsfreiheit NRW<br>
-    Postfach 20 04 44, 40102 Düsseldorf<br>
-    E-Mail: <a href="mailto:poststelle@ldi.nrw.de">poststelle@ldi.nrw.de</a>
-  </p>
-
-  <h2>8. Обязательная передача данных</h2>
-  <p>
-    Передача данных необходима для заключения и выполнения договора посредника.
-  </p>
-
-  <h2>9. Передача данных в третьи страны</h2>
-  <p>
-    При передаче данных в страны за пределами ЕЭЗ осуществляется
-    только при подтверждённом уровне защиты данных или с соответствующими гарантиями
-    (например, стандартные договорные положения ЕС).
-  </p>
-
-  <h2>10. Автоматизированные решения / профилирование</h2>
-  <p>
-    Автоматизированные индивидуальные решения и профилирование не применяются.
-  </p>
-
 </section>
 `;
 });
@@ -926,42 +1005,7 @@ wiederrufBtn.addEventListener("click", () => {
     Ihr Widerrufsrecht ausgeübt haben.
   </p>
 
-  <hr>
-
-  <h1>Информация о праве на отмену</h1>
-  <p>
-    Потребители имеют право в течение четырнадцати дней без объяснения
-    причин отменить этот договор.
-  </p>
-
-  <h3>Срок отмены</h3>
-  <p>
-    Срок отмены составляет 14 дней с момента заключения договора
-    по электронной почте.
-  </p>
-
-  <h3>Последствия отмены</h3>
-  <p>
-    В случае отмены договора необходимо вернуть полученные услуги.
-    Переданные персональные данные не удаляются автоматически, но
-    могут быть удалены по вашему запросу.
-  </p>
-
-  <h3>Реализация права на отмену</h3>
-  <p>
-    Чтобы воспользоваться правом на отмену, отправьте
-    однозначное заявление по электронной почте на адрес:
-    <a href="mailto:info@in-seel.de">info@in-seel.de</a>
-  </p>
-
-  <h3>Особые замечания</h3>
-  <p>
-    Право на отмену не распространяется на договоры по оказанию
-    услуг, которые были полностью выполнены с вашего явного
-    согласия до использования права на отмену.
-  </p>
-
-  <p><strong>Stand / Дата: 2026</strong></p>
+  <p><strong>Stand: 2026</strong></p>
 </section>
 `;
 });
@@ -1052,90 +1096,7 @@ agbBtn.addEventListener("click", () => {
     bleibt die Wirksamkeit der übrigen Bestimmungen unberührt.
   </p>
 
-  <hr>
-
-  <h3>1. Область применения</h3>
-  <p>
-    Настоящие Общие условия ведения деятельности применяются ко всем
-    запросам, посредническим услугам и договорам между
-    <strong>Alexander Kaul – IN-SEEL Tourservice</strong>
-    (далее — «Исполнитель») и клиентами.
-  </p>
-
-  <h3>2. Услуги</h3>
-  <p>
-    Исполнитель оказывает туристические и посреднические услуги.
-    Сайт носит исключительно информационный характер.
-    Заключение договора через сайт не осуществляется.
-    Договор заключается только посредством индивидуального общения,
-    в частности по электронной почте.
-  </p>
-
-  <h3>3. Заключение договора</h3>
-  <p>
-    Договор считается заключённым только после направления
-    индивидуального предложения Исполнителем и его
-    подтверждения Клиентом (например, по электронной почте).
-  </p>
-
-  <h3>4. Цены и условия оплаты</h3>
-  <p>
-    Цены согласовываются индивидуально и указываются в предложении.
-    Оплата через данный сайт не производится.
-  </p>
-
-  <h3>5. Обязанности клиента</h3>
-  <p>
-    Клиент обязуется предоставлять всю необходимую информацию
-    для оказания услуг в полном и достоверном объёме.
-  </p>
-
-  <h3>6. Ответственность</h3>
-  <p>
-    Исполнитель несёт ответственность только за ущерб,
-    причинённый умышленно или вследствие грубой неосторожности.
-    При простой неосторожности ответственность возможна
-    только при нарушении существенных договорных обязательств.
-  </p>
-
-  <p>
-    Ответственность за услуги третьих лиц или посредников
-    исключается в рамках, допустимых законодательством.
-  </p>
-
-  <h3>7. Ответственность за содержание и ссылки</h3>
-  <p>
-    Содержание сайта создаётся с максимальной тщательностью,
-    однако Исполнитель не гарантирует его актуальность,
-    точность и полноту.
-  </p>
-
-  <p>
-    Сайт может содержать ссылки на сторонние ресурсы,
-    за содержание которых Исполнитель ответственности не несёт.
-  </p>
-
-  <h3>8. Защита данных</h3>
-  <p>
-    Обработка персональных данных осуществляется в соответствии
-    с действующим законодательством о защите данных.
-    Подробности указаны в разделе
-    <a href="#datenschutz">Политика конфиденциальности</a>.
-  </p>
-
-  <h3>9. Заключительные положения</h3>
-  <p>
-    Применяется право Федеративной Республики Германия.
-    Место судебной подсудности — по месту нахождения Исполнителя,
-    если это допустимо законом.
-  </p>
-
-  <p>
-    Если отдельные положения данных условий окажутся недействительными,
-    это не влияет на действительность остальных положений.
-  </p>
-
-  <p><strong>Stand / Дата: 2026</strong></p>
+  <p><strong>Stand: 2026</strong></p>
 </section>
 `;
 });
@@ -1371,351 +1332,6 @@ datenschutzBtn.addEventListener("click", () => {
   </p>
 
   <p><strong>Stand: 2026</strong></p><br><br>
-
-  <hr>
-
-  <h1>Политика конфиденциальности</h1>
-
-  <p>
-    Защита ваших персональных данных для нас очень важна.
-    Ниже мы информируем вас о том, как обрабатываются персональные данные
-    на этом веб-сайте.
-  </p>
-
-  <h2>1. Ответственный за обработку данных</h2>
-  <p>
-    Ответственным за обработку данных на этом сайте является:<br><br>
-
-    <strong>Alexander Kaul – IN-SEEL Tourservice</strong><br>
-    Sebastianstr. 97<br>
-    DE-50735 Кёльн<br><br>
-
-    Телефон: +49 (0) 221 778 98 702<br>
-    E-Mail: <a href="mailto:info@in-seel.de">info@in-seel.de</a>
-  </p>
-
-  <h2>2. Хостинг и предоставление сайта</h2>
-  <p>
-    Этот сайт размещён на <strong>GitHub Pages</strong>.
-    При обращении к сайту GitHub автоматически собирает
-    информацию в так называемых лог-файлах сервера.
-  </p>
-
-  <p>Эти данные могут включать:</p>
-  <ul>
-    <li>IP-адрес</li>
-    <li>Дата и время запроса</li>
-    <li>Тип и версия браузера</li>
-    <li>Операционная система</li>
-    <li>Referrer-URL</li>
-  </ul>
-
-  <p>
-    Обработка данных необходима для технического предоставления
-    сайта и обеспечения его безопасности согласно Art. 6 Abs. 1 lit. f DSGVO.
-  </p>
-
-  <p>
-    Поскольку GitHub Pages — это сервис компании GitHub Inc., США,
-    данные могут передаваться в третьи страны. GitHub обязуется
-    соблюдать соответствующие гарантии защиты данных
-    согласно Art. 44 ff. DSGVO.
-  </p>
-
-  <h2>3. Управление доменом и DNS</h2>
-  <p>
-    Домен этого сайта управляется компанией STRATO AG.
-    STRATO обрабатывает персональные данные исключительно
-    в рамках управления доменом и DNS.
-  </p>
-
-  <h2>4. Использование сервисов Google (Google Sheets & Scripts)</h2>
-  <p>
-    Для технического обслуживания и управления контентом сайта
-    используются Google Sheets и Google Scripts.
-  </p>
-
-  <p>
-    <strong>Персональные данные посетителей сайта не сохраняются и не обрабатываются.</strong>
-    Использование сервисов исключительно для управления содержимым сайта.
-  </p>
-
-  <p>
-    Доступ к этим сервисам осуществляется через Google-аккаунт
-    (<a href="mailto:inseleuropa@gmail.com">inseleuropa@gmail.com</a>).
-  </p>
-
-  <h2>5. Связь по электронной почте</h2>
-  <p>
-    Если вы связываетесь с нами по электронной почте,
-    предоставленные вами персональные данные
-    (например, имя, адрес электронной почты, содержание сообщения)
-    используются исключительно для обработки вашего запроса.
-  </p>
-
-  <p>
-    Правовая основа: Art. 6 Abs. 1 lit. b DSGVO
-    (договорные / предварительные меры) или
-    Art. 6 Abs. 1 lit. f DSGVO (законный интерес коммуникации).
-  </p>
-
-  <p>
-    После успешной отправки данных вы получите подтверждение по электронной почте.
-  </p>
-
-  <h2>6. Передача данных</h2>
-  <p>
-    Передача ваших персональных данных третьим лицам не осуществляется,
-    если нет юридического обязательства.
-  </p>
-
-  <h2>7. Срок хранения</h2>
-  <p>
-    Персональные данные хранятся только столько,
-    сколько необходимо для обработки вашего запроса
-    или в рамках законных сроков хранения.
-  </p>
-
-  <h2>8. Ваши права</h2>
-  <p>Вы имеете право:</p>
-  <ul>
-    <li>Получить информацию о сохранённых данных</li>
-    <li>Исправить некорректные данные</li>
-    <li>Запросить удаление данных</li>
-    <li>Ограничить обработку данных</li>
-    <li>Возразить против обработки</li>
-    <li>Получить данные в машиночитаемом формате</li>
-  </ul>
-
-  <h2>9. Право на жалобу</h2>
-  <p>
-    Вы имеете право подать жалобу в орган по защите данных:
-  </p>
-
-  <p>
-    <strong>Landesbeauftragte für Datenschutz und Informationsfreiheit Nordrhein-Westfalen</strong><br>
-    Postfach 20 04 44<br>
-    40102 Дюссельдорф<br>
-    E-Mail:
-    <a href="mailto:poststelle@ldi.nrw.de">poststelle@ldi.nrw.de</a>
-  </p>
-
-  <h2>10. SSL / TLS шифрование</h2>
-<p>
-  Данный сайт размещён на платформе GitHub Pages и использует
-  SSL/TLS шифрование для обеспечения безопасной передачи данных
-  между браузером пользователя и сервером.
-</p>
-
-<p>
-  SSL/TLS шифрование позволяет защитить передаваемые данные
-  от несанкционированного доступа третьих лиц.
-</p>
-
-  <h2>11. Изменения политики конфиденциальности</h2>
-  <p>
-    Мы оставляем за собой право адаптировать эту политику
-    конфиденциальности в соответствии с изменениями законодательства
-    или техническими изменениями.
-  </p>
-
-  <p><strong>Stand / Дата: 2026</strong></p>
-    </section>
+  </section>
   `;
-});
-
-// Filters
-searchButton.addEventListener("click", () => {
-  let filteredTours = [...tours];
-
-  const startCitySelect = document.getElementById("startCity");
-
-  const fromDateValue = dateFromInput.value
-    ? new Date(dateFromInput.value)
-    : null;
-  const toDateValue = dateToInput.value ? new Date(dateToInput.value) : null;
-
-  // Datum-Filter
-  if (fromDateValue && toDateValue) {
-    if (fromDateValue.getTime() === toDateValue.getTime()) {
-      filteredTours = filteredTours.filter((t) =>
-        t.startDates.some((d) => d >= fromDateValue)
-      );
-    } else {
-      filteredTours = filteredTours.filter((t) =>
-        t.startDates.some((d) => d >= fromDateValue && d <= toDateValue)
-      );
-    }
-  } else if (fromDateValue) {
-    filteredTours = filteredTours.filter((t) =>
-      t.startDates.some((d) => d >= fromDateValue)
-    );
-  } else if (toDateValue) {
-    filteredTours = filteredTours.filter((t) =>
-      t.startDates.some((d) => d <= toDateValue)
-    );
-  }
-  // Länder-Filte
-  if (countrySelect && countrySelect.value !== "all") {
-    const selectedCountry = countrySelect.value.trim();
-
-    filteredTours = filteredTours.filter(
-      (tour) =>
-        Array.isArray(tour.countries) &&
-        tour.countries.includes(selectedCountry)
-    );
-  }
-  // Tourtyp-Filter
-  if (tourTypeSelect.value && tourTypeSelect.value !== "all") {
-    filteredTours = filteredTours.filter((tour) => {
-      const starts = Array.isArray(tour.startDates) ? tour.startDates : [];
-      const ends = Array.isArray(tour.endDates) ? tour.endDates : [];
-      let isMulti = false;
-      for (let i = 0; i < Math.max(starts.length, ends.length); i++) {
-        const start = starts[i];
-        const end = ends[i];
-
-        if (start && end && end.getTime() > start.getTime()) {
-          isMulti = true;
-          break;
-        }
-      }
-
-      if (tourTypeSelect.value === "multipledays") return isMulti;
-      if (tourTypeSelect.value === "oneday") return !isMulti;
-
-      return true;
-    });
-  }
-
-  //  Startstadt-Filter
-  if (startCitySelect && startCitySelect.value !== "all") {
-    const selectedCity = startCitySelect.value.trim().toLowerCase();
-
-    filteredTours = filteredTours.filter((t) =>
-      t.startCities.some(
-        (city) =>
-          city
-            .trim()
-            .toLowerCase()
-            .replace(/ä/g, "ae")
-            .replace(/ö/g, "oe")
-            .replace(/ü/g, "ue")
-            .replace(/ß/g, "ss")
-            .replace(/[\s/]/g, "_") === selectedCity
-      )
-    );
-  }
-
-  renderTourCards(filteredTours);
-
-  if (filteredTours.length === 0) {
-    tourList.innerHTML = "<p>Ничего не найдено!</p>";
-  }
-});
-
-// Formular-Submit-Handler
-document.addEventListener("DOMContentLoaded", () => {
-  const form = document.querySelector("form");
-  const formContainer = document.querySelector(".form-contrainer");
-  if (!form) return;
-
-  const submitButton = form.querySelector('button[type="submit"]');
-
-  form.addEventListener("submit", async (e) => {
-    e.preventDefault();
-
-    submitButton.disabled = true;
-    submitButton.textContent = "Отправка...";
-
-    const formData = new FormData();
-    formData.append("fname", document.getElementById("fname").value);
-    formData.append("lname", document.getElementById("lname").value);
-    formData.append("agency", document.getElementById("agency").value);
-
-    formData.append("email", document.getElementById("email").value);
-    formData.append("phone", document.getElementById("phone").value);
-    formData.append(
-      "numTourists",
-      document.getElementById("numTourists").value
-    );
-    formData.append(
-      "numChildren",
-      document.getElementById("numChildren").value
-    );
-    formData.append(
-      "startDate",
-      document.getElementById("start-date-select")?.value || ""
-    );
-    formData.append(
-      "startCity",
-      document.getElementById("start-city-select")?.value || ""
-    );
-    formData.append("comments", document.getElementById("comments").value);
-    formData.append(
-      "tourTitle",
-      document.getElementById("tourTitle").textContent
-    );
-    formData.append(
-      "userAddress",
-      `${document.getElementById("addressStreet")?.value || ""} ${
-        document.getElementById("addressCity")?.value || ""
-      }`
-    );
-    const hotelSelect = document.getElementById("hotel-room-select");
-    formData.append("hotelRoomType", hotelSelect ? hotelSelect.value : "");
-
-    const childInputs = document.querySelectorAll("#birthdatesContainer input");
-    childInputs.forEach((input, index) => {
-      formData.append(`child_birthdate_${index + 1}`, input.value);
-    });
-
-    const scriptURL =
-      "https://script.google.com/macros/s/AKfycbxaF82txqsJY4iqI2EdkNxyQj_UplwiQjNx7J4r08BWp1AB6WK5iEVMnS91Rc0ABNfb/exec";
-
-    try {
-      await fetch(scriptURL, {
-        method: "POST",
-        body: formData,
-        mode: "no-cors",
-      });
-
-      console.log("✅ Запрос успешно отправлен!");
-
-      form.style.display = "none";
-
-      const thankYouMsg = document.createElement("div");
-      thankYouMsg.className = "thank-you-message";
-      thankYouMsg.innerHTML = `
-        <h2>✅ Спасибо!</h2>
-        <p>Ваша заявка успешно отправлена.</p>
-        <p>Наши специалисты свяжутся с вами в ближайшее время.</p>
-      
-        <button id="backToCatalog" class="order-btn">Вернуться к турам</button>
-      `;
-      formContainer.appendChild(thankYouMsg);
-
-      // Button zum Zurückkehren zum Katalog
-      const backButton = document.getElementById("backToCatalog");
-      backButton.addEventListener("click", () => {
-        document.querySelector(".catalog-container").style.display = "block";
-        formContainer.style.display = "none";
-        form.reset();
-        thankYouMsg.remove();
-        form.style.display = "block";
-        // ✅ Button wieder aktivieren
-        submitButton.disabled = false;
-        submitButton.textContent = "Отправить";
-      });
-    } catch (err) {
-      console.error("❌ Ошибка соединения:", err);
-      const errorMsg = document.createElement("p");
-      errorMsg.style.color = "red";
-      errorMsg.textContent = "❌ Ошибка соединения! Попробуйте позже.";
-      form.appendChild(errorMsg);
-      // Button wieder aktivieren
-      submitButton.disabled = false;
-      submitButton.textContent = "Отправить";
-    }
-  });
 });
